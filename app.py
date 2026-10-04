@@ -178,9 +178,6 @@ html_code = """
                 <p class="text-gray-400 text-sm sm:text-base">
                     Select your travel service below. From instant global visa requirements to flights, accommodations, and local ground support.
                 </p>
-                <button onclick="openAssistanceModal('Free Consultation', 'Global Travel Support')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-extrabold text-sm transition shadow-lg shadow-brandRed/30">
-                    <i class="fa-solid fa-headset"></i> Talk to our experienced human officers now for free consultations
-                </button>
             </div>
 
             <!-- Dashboard Options -->
@@ -259,10 +256,102 @@ html_code = """
                 </div>
 
             </div>
+                <!-- CARD 5: FULL TRIP HANDLING -->
+                <div onclick="switchTab('packages')" class="glass-card glass-card-hover p-6 sm:p-8 rounded-2xl cursor-pointer group relative overflow-hidden flex flex-col justify-between min-h-[240px] md:col-span-2 border-brandRed/50">
+                    <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-25 transition text-brandRed">
+                        <i class="fa-solid fa-route text-9xl"></i>
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-white transition">
+                            <i class="fa-solid fa-route"></i>
+                        </div>
+                        <span class="text-xs font-bold text-brandRed uppercase tracking-widest">New: Full trip handling</span>
+                        <h2 class="text-2xl font-bold text-white mt-1 group-hover:text-brandRed transition">What about a full handling of your trip A to Z?</h2>
+                        <p class="text-gray-400 text-xs sm:text-sm mt-2">Take a tour with PamsBeyond and discover our travel packages for visa preparation, flights, accommodation, and professional travel planning.</p>
+                    </div>
+                    <div class="mt-6 flex items-center text-xs font-bold text-brandRed group-hover:translate-x-2 transition">
+                        Explore Our Packages <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+
         </section>
 
 
         <!-- ================================================================= -->
+
+        <!-- ================================================================= -->
+        <!-- VIEW: FULL TRIP PACKAGES -->
+        <!-- ================================================================= -->
+        <section id="view-packages" class="space-y-8 hidden">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                <div>
+                    <span class="text-brandRed text-xs font-bold tracking-widest uppercase">Full trip handling A to Z</span>
+                    <h1 class="text-3xl font-extrabold text-white">Take a tour with PamsBeyond</h1>
+                    <p class="text-gray-400 text-sm mt-2">Choose a package and let our team coordinate the important details.</p>
+                </div>
+                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Main
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- EUROPE PACKAGE -->
+                <article class="glass-card rounded-2xl overflow-hidden border border-brandRed/40">
+                    <div class="relative h-52 bg-brandBlack flex items-center justify-center overflow-hidden">
+                        <svg viewBox="0 0 700 260" class="w-full h-full" role="img" aria-label="Illustration of European travel with the Eiffel Tower and European landmarks">
+                            <rect width="700" height="260" fill="#10131b"/>
+                            <circle cx="590" cy="55" r="34" fill="#e60023" opacity=".85"/>
+                            <path d="M120 220 L185 52 L250 220 M148 145 H222 M135 180 H237 M185 52 V220" stroke="#fff" stroke-width="10" fill="none"/>
+                            <path d="M0 220 Q120 180 240 220 T480 220 T700 220 V260 H0Z" fill="#b3001b" opacity=".45"/>
+                            <path d="M360 210 C390 165 430 165 460 210 M398 165 V105 M430 165 V105 M370 190 H450" stroke="#e60023" stroke-width="9" fill="none"/>
+                            <text x="285" y="55" fill="#fff" font-size="30" font-family="Arial" font-weight="700">EUROPE</text>
+                            <text x="285" y="88" fill="#c9cbd1" font-size="18" font-family="Arial">culture • cities • memories</text>
+                        </svg>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <span class="text-xs font-bold text-brandRed uppercase tracking-widest">Package 01</span>
+                        <h2 class="text-2xl font-bold text-white">Europe on your pocket</h2>
+                        <p class="text-sm text-gray-300 leading-relaxed">Be relaxed and see what you get. We help with your visa application, flight and accommodation documents for visa use, and a professional travel plan. Don’t worry about travel insurance — our top-rated insurance company partners can process your order in minutes.</p>
+                        <div class="border-t border-gray-800 pt-4 space-y-3">
+                            <span class="text-brandRed font-black text-xl block">Starting from $7.99</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="switchTab('visa')" class="px-4 py-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold">Check Visa Requirements</button>
+                                <button onclick="openAssistanceModal('Europe Travel Package', 'Flights')" class="px-4 py-2 rounded-xl bg-brandRed/20 hover:bg-brandRed text-brandRed hover:text-white text-xs font-bold">Submit Information & Talk to Our Officer</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- USA PACKAGE -->
+                <article class="glass-card rounded-2xl overflow-hidden border border-brandRed/40">
+                    <div class="relative h-52 bg-brandBlack flex items-center justify-center overflow-hidden">
+                        <svg viewBox="0 0 700 260" class="w-full h-full" role="img" aria-label="Illustration of New York and American travel">
+                            <rect width="700" height="260" fill="#10131b"/>
+                            <circle cx="575" cy="55" r="34" fill="#e60023" opacity=".85"/>
+                            <path d="M70 220 V145 H125 V220 M145 220 V95 H205 V220 M225 220 V125 H280 V220 M300 220 V62 H360 V220 M385 220 V112 H445 V220 M475 220 V80 H535 V220 M560 220 V135 H625 V220" fill="#fff" opacity=".9"/>
+                            <path d="M300 62 L330 30 L360 62" fill="#e60023"/>
+                            <path d="M0 220 H700" stroke="#e60023" stroke-width="8"/>
+                            <text x="70" y="55" fill="#fff" font-size="30" font-family="Arial" font-weight="700">THE USA</text>
+                            <text x="70" y="88" fill="#c9cbd1" font-size="18" font-family="Arial">New York and 50 siblings</text>
+                        </svg>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <span class="text-xs font-bold text-brandRed uppercase tracking-widest">Package 02</span>
+                        <h2 class="text-2xl font-bold text-white">Big Apple City and 50 siblings waiting for you</h2>
+                        <p class="text-sm text-gray-300 leading-relaxed">Grab your big coffee cup and open your eyes for a minute. Get your DS-160 while your burger is on the grill, with guided preparation for your American travel plans.</p>
+                        <div class="border-t border-gray-800 pt-4 space-y-3">
+                            <span class="text-brandRed font-black text-xl block">Starting from $9.99</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="switchTab('visa')" class="px-4 py-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold">Check Visa Requirements</button>
+                                <button onclick="openAssistanceModal('USA Travel Package', 'Flights')" class="px-4 py-2 rounded-xl bg-brandRed/20 hover:bg-brandRed text-brandRed hover:text-white text-xs font-bold">Submit Information & Talk to Our Officer</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
         <!-- VIEW 1: VISA REQUIREMENTS -->
         <!-- ================================================================= -->
         <section id="view-visa" class="space-y-8 hidden">
@@ -355,11 +444,11 @@ html_code = """
                     <div class="mt-6 p-6 rounded-xl bg-gradient-to-r from-brandNavy to-brandGray border border-brandRed/40 flex flex-col sm:flex-row items-center justify-between gap-4 glow-red">
                         <div>
                             <span class="bg-brandRed text-white text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Handling for you</span>
-                            <h3 class="text-lg font-bold text-white mt-1">Want us to handle your application with the best prices?</h3>
-                            <p id="offerText" class="text-xs text-gray-300 mt-1">Our team prepares, verifies & submits your visa application from start to finish.</p>
+                            <h3 class="text-lg font-bold text-white mt-1">Want to handle your case starting from $5.99?</h3>
+                            <p id="offerText" class="text-xs text-gray-300 mt-1">Free consultation with our experienced officers.</p>
                         </div>
                         <button onclick="triggerHandledAssistance()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-extrabold text-xs whitespace-nowrap transition shadow-lg">
-                            Feel free to talk to our experienced human officers <i class="fa-solid fa-headset ml-1"></i>
+                            Want to handle your case starting from 5.99 $ and free consultation with our experienced officers <i class="fa-solid fa-headset ml-1"></i>
                         </button>
                     </div>
                 </div>
@@ -667,9 +756,9 @@ html_code = """
                 <span>&copy; <span id="year"></span>. All rights reserved.</span>
             </div>
             <div class="flex items-center gap-4 text-gray-400">
-                <a href="#" class="hover:text-brandRed">Privacy Policy</a>
-                <a href="#" class="hover:text-brandRed">Terms of Service</a>
-                <a href="#" class="hover:text-brandRed">Officer Desk</a>
+                <a href="#" onclick="switchTab('privacy'); return false;" class="hover:text-brandRed">Privacy Policy</a>
+                <a href="#" onclick="switchTab('terms'); return false;" class="hover:text-brandRed">Terms of Service</a>
+                <a href="#" onclick="openAssistanceModal('General Consultation', 'Flights'); return false;" class="hover:text-brandRed">Officer Desk</a>
             </div>
         </div>
     </footer>
@@ -733,7 +822,7 @@ html_code = """
         });
 
         function switchTab(tabId) {
-            ['home', 'visa', 'flights', 'hotels', 'help'].forEach(id => {
+            ['home', 'visa', 'flights', 'hotels', 'help', 'packages', 'privacy', 'terms'].forEach(id => {
                 document.getElementById('view-' + id).classList.add('hidden');
             });
             document.getElementById('view-' + tabId).classList.remove('hidden');
@@ -781,8 +870,8 @@ html_code = """
             ];
             document.getElementById('termsList').innerHTML = terms.map(t => `<li class="flex items-start gap-2"><i class="fa-solid fa-circle-exclamation text-brandRed mt-1"></i> <span>${t}</span></li>`).join('');
 
-            const dynamicPrice = (origin === "Egypt" && dest === "Canada") ? "10.99" : "14.99";
-            document.getElementById('offerText').textContent = `Free consultation available for your ${vType} journey from ${origin} to ${dest}.`;
+            const dynamicPrice = "5.99";
+            document.getElementById('offerText').textContent = `Want to handle your case starting from 5.99 $ and get a free consultation with our experienced officers.`;
 
             resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
