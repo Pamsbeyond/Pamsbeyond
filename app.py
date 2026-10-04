@@ -748,6 +748,42 @@ html_code = """
         </div>
     </div>
 
+
+        <!-- PRIVACY POLICY PAGE -->
+        <section id="view-privacy" class="space-y-8 hidden">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                <div>
+                    <span class="text-brandRed text-xs font-bold tracking-widest uppercase">Trust & transparency</span>
+                    <h1 class="text-3xl font-extrabold text-white">Privacy Policy: Data Security & Document Handling</h1>
+                </div>
+                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Main</button>
+            </div>
+            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-8 text-sm text-gray-300 leading-relaxed">
+                <p><strong class="text-white">PamsBeyond</strong> is committed to protecting your personal data and ensuring transparency regarding how your information is handled.</p>
+                <div><h2 class="text-xl font-bold text-white mb-3">1. Handling of Identity Documents</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-white">Secure transmission:</strong> Uploaded passports and identification documents are transmitted using encryption to help protect them during transit.</li><li><strong class="text-white">Automatic deletion:</strong> Identification documents are permanently purged after the relevant visa application, travel planning, or request processing is complete. We do not retain sensitive identification documents longer than necessary.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-white mb-3">2. Use of Email and Contact Information</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-white">Strictly for updates:</strong> Your email is collected for important updates, status notifications, and essential information about your request or booking.</li><li><strong class="text-white">No spam or third-party sharing:</strong> We do not send spam or sell, rent, or share personal contact details with third parties for marketing or advertising.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-white mb-3">3. Privacy Reminders</h2><ul class="list-disc pl-5 space-y-2"><li>Upload notices explain secure transmission and automatic deletion after processing.</li><li>Email and checkout notices explain that contact information is used for request updates only.</li><li>Confirmation emails can confirm when processing is complete and identification documents have been deleted.</li></ul></div>
+            </div>
+        </section>
+
+        <!-- TERMS OF SERVICE PAGE -->
+        <section id="view-terms" class="space-y-8 hidden">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                <div>
+                    <span class="text-brandRed text-xs font-bold tracking-widest uppercase">Legal information</span>
+                    <h1 class="text-3xl font-extrabold text-white">PamsBeyond — Terms of Use</h1>
+                </div>
+                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Main</button>
+            </div>
+            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-8 text-sm text-gray-300 leading-relaxed">
+                <div><h2 class="text-xl font-bold text-white mb-3">1. Nature of Services and Disclaimer</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-white">Independent service provider:</strong> PamsBeyond provides AI-powered tools and human-assisted guidance for travel planning and visa application preparation.</li><li><strong class="text-white">Not a government agency:</strong> PamsBeyond is not a government agency, embassy, or official consulate and cannot grant visas. Visa decisions rest solely with the relevant authorities and approval is not guaranteed.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-white mb-3">2. Bookings and Third-Party Suppliers</h2><ul class="list-disc pl-5 space-y-2"><li>PamsBeyond compares flight and hotel prices and may link to third-party suppliers. We do not directly hold travel reservations.</li><li>Bookings are subject to supplier pricing, cancellation policies, and terms. PamsBeyond is not liable for supplier failures, delays, cancellations, or booking errors.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-white mb-3">3. User Responsibilities</h2><ul class="list-disc pl-5 space-y-2"><li>Users must provide accurate, truthful, and current information.</li><li>Users are responsible for passport validity, vaccinations, transit visas, and other travel prerequisites.</li><li>Users must carefully review completed applications. If an error is identified on our part, PamsBeyond will work to correct it.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-white mb-3">4. Fees, Payments, and Refund Policy</h2><ul class="list-disc pl-5 space-y-2"><li>PamsBeyond service fees cover preparation and filling services. Government fees, embassy charges, and third-party travel costs are separate.</li><li>Service fees are generally non-refundable. Visa rejection does not automatically qualify for a refund.</li><li>Exceptional review may be available when official documentation shows a refusal was directly caused by an error on our part.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-white mb-3">5. Limitation of Liability</h2><p>PamsBeyond is not liable for financial losses, missed flights, denied boarding, or entry refusals caused by visa processing delays, embassy decisions, or inaccurate user-provided information. Liability is limited to the scope of application preparation and facilitation services.</p></div>
+            </div>
+        </section>
+
     <!-- FOOTER -->
     <footer class="relative z-10 glass-card border-t border-brandRed/20 mt-12 py-6 px-4 text-center text-xs text-gray-500">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">

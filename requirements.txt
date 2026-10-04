@@ -1,1 +1,5 @@
+# Core application framework
 streamlit>=1.25.0
+
+# The app's interactive map, icons, styling, and travel artwork are loaded by the embedded web interface.
+# No additional Python packages are required.
