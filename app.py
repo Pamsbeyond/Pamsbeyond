@@ -1126,22 +1126,49 @@ html_code = """
             document.getElementById('assistanceModal').classList.add('hidden');
         }
 
-        function handleAssistanceSubmit(e) {
+        async function handleAssistanceSubmit(e) {
             e.preventDefault();
-            const name = document.getElementById('clientName').value;
-            const email = document.getElementById('clientEmail').value;
+
+            const name = document.getElementById('clientName').value.trim();
+            const email = document.getElementById('clientEmail').value.trim();
             const visaType = document.getElementById('modalVisaType').value;
             const dest = document.getElementById('modalDest').value;
+            const submitButton = document.querySelector('#assistanceForm button[type="submit"]');
 
-            document.getElementById('assistanceForm').classList.add('hidden');
-            document.getElementById('modalSuccess').classList.remove('hidden');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-            const subject = encodeURIComponent(`PamsBeyond Request: ${visaType} for ${dest}`);
-            const body = encodeURIComponent(`Client Name: ${name}\nClient Email: ${email}\nVisa Type: ${visaType}\nOther Service: ${dest}`);
-            
-            setTimeout(() => {
-                window.location.href = `mailto:support@pamsbeyond.com?subject=${subject}&body=${body}`;
-            }, 1500);
+            const formData = {
+                name,
+                email,
+                visa_assistance: visaType,
+                other_service: dest,
+                _subject: `PamsBeyond Officer Request: ${visaType} - ${dest}`,
+                _captcha: 'true',
+                _template: 'table'
+            };
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/pamsbeyond@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Form submission failed');
+                }
+
+                document.getElementById('assistanceForm').classList.add('hidden');
+                document.getElementById('modalSuccess').classList.remove('hidden');
+            } catch (error) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Connect With Officer Desk';
+                alert('Sorry, your request could not be sent. Please try again or email us directly.');
+            }
         }
 
         // FLYING PLANES BACKGROUND CANVAS
