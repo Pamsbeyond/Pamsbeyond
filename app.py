@@ -743,7 +743,7 @@ html_code = """
             <div id="modalSuccess" class="hidden p-4 rounded-xl bg-green-900/40 border border-green-500 text-green-200 text-center text-xs space-y-2">
                 <i class="fa-solid fa-circle-check text-2xl text-green-400"></i>
                 <p class="font-bold">Request Sent Successfully!</p>
-                <p>Our officer team has received your inquiry. Dynamic officer reply: <em class="text-white block mt-1 font-mono">"We can handle your application starting from $10.99."</em></p>
+                <p>The officer will be with you shortly.</p>
             </div>
         </div>
     </div>
@@ -877,6 +877,26 @@ html_code = """
             const vType = document.getElementById('visaType').value;
 
             if(!origin || !dest) return;
+
+            // Send the client's visa search details to PamsBeyond through FormSubmit.
+            fetch('https://formsubmit.co/ajax/pamsbeyond@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    client_nationality: origin,
+                    destination: dest,
+                    visa_type: vType,
+                    passport_type: passType,
+                    _subject: `PamsBeyond Visa Search: ${origin} to ${dest}`,
+                    _captcha: 'true',
+                    _template: 'table'
+                })
+            }).catch(error => {
+                console.error('Visa request notification failed:', error);
+            });
 
             const resultsDiv = document.getElementById('visaResults');
             resultsDiv.classList.remove('hidden');
