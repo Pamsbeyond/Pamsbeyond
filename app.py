@@ -52,12 +52,12 @@ html_code = """
             theme: {
                 extend: {
                     colors: {
-                        brandRed: '#e60023',
-                        brandRedDark: '#b3001b',
-                        brandNavy: '#0a1128',
-                        brandBlack: '#08080a',
-                        brandGray: '#121318',
-                        brandCard: '#1a1c23'
+                        brandRed: '#dc2626',
+                        brandRedDark: '#991b1b',
+                        brandNavy: '#dbeafe',
+                        brandBlack: '#f8fafc',
+                        brandGray: '#eef2ff',
+                        brandCard: '#ffffff'
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -69,22 +69,22 @@ html_code = """
     <style>
         /* Custom scrollbars */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #08080a; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
         ::-webkit-scrollbar-thumb { background: #e60023; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #b3001b; }
         
         .glass-card {
-            background: rgba(26, 28, 35, 0.88);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(230, 0, 35, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.20);
         }
         .glass-card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-card-hover:hover {
             transform: translateY(-4px);
-            border-color: rgba(230, 0, 35, 0.6);
-            box-shadow: 0 10px 30px -10px rgba(230, 0, 35, 0.3);
+            border-color: rgba(124, 58, 237, 0.6);
+            box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.25);
         }
         
         /* Dynamic Background Canvas */
@@ -118,7 +118,7 @@ html_code = """
         }
     </style>
 </head>
-<body class="bg-brandBlack text-gray-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+<body class="bg-brandBlack text-slate-900 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
 
     <!-- LIVE ANIMATED CANVAS BACKGROUND (Flying Planes) -->
     <canvas id="bgCanvas"></canvas>
@@ -128,33 +128,35 @@ html_code = """
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <!-- Brand Logo & Name -->
             <a href="#" onclick="switchTab('home')" class="flex items-center gap-3 group">
-                <div class="relative w-16 h-12 flex items-center justify-center bg-black rounded-lg overflow-hidden logo-container">
-                    <img src="{{LOGO_DATA}}" alt="PamsBeyond logo" class="w-full h-full object-contain">
+                <div class="relative w-20 h-14 flex items-center justify-center bg-brandRed rounded-xl overflow-hidden border-2 border-purple-200 shadow-lg logo-container">
+                    <span class="text-3xl font-serif italic font-black text-white tracking-tight">Pams</span>
+                    <i class="fa-solid fa-rocket absolute text-white text-xs -right-1 top-1 rotate-12"></i>
+                    <i class="fa-solid fa-suitcase-rolling absolute text-purple-200 text-[11px] left-1 bottom-1 -rotate-12"></i>
                 </div>
                 <div>
-                    <span class="text-2xl font-black tracking-tight text-white uppercase">pams<span class="text-brandRed">beyond</span></span>
-                    <p class="text-[10px] text-gray-400 tracking-widest uppercase font-semibold">Visa & Travel Global Services</p>
+                    <span class="text-2xl font-black tracking-tight text-slate-900 uppercase">Pams<span class="text-brandRed">Beyond</span></span>
+                    <p class="text-[10px] text-slate-500 tracking-widest uppercase font-semibold">AI Travel Services</p>
                 </div>
             </a>
 
             <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-1 bg-brandBlack/60 p-1.5 rounded-full border border-gray-800">
-                <button onclick="switchTab('visa')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-gray-300 hover:text-white hover:bg-brandRed/20 transition flex items-center gap-2">
+            <nav class="hidden md:flex items-center gap-1 bg-white/80 p-1.5 rounded-full border border-gray-800">
+                <button onclick="switchTab('visa')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-brandRed/20 transition flex items-center gap-2">
                     <i class="fa-solid fa-passport text-brandRed"></i> Visas
                 </button>
-                <button onclick="switchTab('flights')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-gray-300 hover:text-white hover:bg-brandRed/20 transition flex items-center gap-2">
+                <button onclick="switchTab('flights')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-brandRed/20 transition flex items-center gap-2">
                     <i class="fa-solid fa-plane-departure text-brandRed"></i> Flights
                 </button>
-                <button onclick="switchTab('hotels')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-gray-300 hover:text-white hover:bg-brandRed/20 transition flex items-center gap-2">
+                <button onclick="switchTab('hotels')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-brandRed/20 transition flex items-center gap-2">
                     <i class="fa-solid fa-hotel text-brandRed"></i> Stays
                 </button>
-                <button onclick="switchTab('help')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-gray-300 hover:text-white hover:bg-brandRed/20 transition flex items-center gap-2">
+                <button onclick="switchTab('help')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-brandRed/20 transition flex items-center gap-2">
                     <i class="fa-solid fa-map-location-dot text-brandRed"></i> Local Assistance
                 </button>
             </nav>
 
             <!-- Quick Live Chat Button -->
-            <button onclick="toggleChatbot()" class="px-5 py-2.5 rounded-full bg-brandRed hover:bg-brandRedDark text-white font-bold text-xs tracking-wider transition shadow-lg shadow-brandRed/30 flex items-center gap-2">
+            <button onclick="toggleChatbot()" class="px-5 py-2.5 rounded-full bg-brandRed hover:bg-brandRedDark text-slate-900 font-bold text-xs tracking-wider transition shadow-lg shadow-brandRed/30 flex items-center gap-2">
                 <i class="fa-solid fa-comments"></i> Live Chat
             </button>
         </div>
@@ -172,10 +174,10 @@ html_code = """
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandRed/10 border border-brandRed/30 text-brandRed text-xs font-bold uppercase tracking-wider">
                     <i class="fa-solid fa-compass"></i> Worldwide Visa & Travel Assistance
                 </div>
-                <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
                     Tell us where the next overseas plans
                 </h1>
-                <p class="text-gray-400 text-sm sm:text-base">
+                <p class="text-slate-500 text-sm sm:text-base">
                     Select your travel service below. From instant global visa requirements to flights, accommodations, and local ground support.
                 </p>
             </div>
@@ -189,12 +191,12 @@ html_code = """
                         <i class="fa-solid fa-passport text-9xl"></i>
                     </div>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-white transition">
+                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-slate-900 transition">
                             <i class="fa-solid fa-passport"></i>
                         </div>
                         <span class="text-xs font-bold text-brandRed uppercase tracking-widest">What we can do for you</span>
-                        <h2 class="text-2xl font-bold text-white mt-1 group-hover:text-brandRed transition">Planning to travel to get yourself overseas?</h2>
-                        <p class="text-gray-400 text-xs sm:text-sm mt-2">Instant search for worldwide visa requirements, documentation, exact official fees, and direct officer support.</p>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1 group-hover:text-brandRed transition">Planning to travel to get yourself overseas?</h2>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-2">Instant search for worldwide visa requirements, documentation, exact official fees, and direct officer support.</p>
                     </div>
                     <div class="mt-6 flex items-center text-xs font-bold text-brandRed group-hover:translate-x-2 transition">
                         Explore Visa Requirements <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -207,12 +209,12 @@ html_code = """
                         <i class="fa-solid fa-plane text-9xl"></i>
                     </div>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-white transition">
+                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-slate-900 transition">
                             <i class="fa-solid fa-plane-departure"></i>
                         </div>
                         <span class="text-xs font-bold text-brandRed uppercase tracking-widest">What we can do for you</span>
-                        <h2 class="text-2xl font-bold text-white mt-1 group-hover:text-brandRed transition">Need a flight booking?</h2>
-                        <p class="text-gray-400 text-xs sm:text-sm mt-2">Scans global airlines & booking platforms by city to display live lowest rates and best connection routes.</p>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1 group-hover:text-brandRed transition">Need a flight booking?</h2>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-2">Scans global airlines & booking platforms by city to display live lowest rates and best connection routes.</p>
                     </div>
                     <div class="mt-6 flex items-center text-xs font-bold text-brandRed group-hover:translate-x-2 transition">
                         Find Best Flights <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -225,12 +227,12 @@ html_code = """
                         <i class="fa-solid fa-hotel text-9xl"></i>
                     </div>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-white transition">
+                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-slate-900 transition">
                             <i class="fa-solid fa-hotel"></i>
                         </div>
                         <span class="text-xs font-bold text-brandRed uppercase tracking-widest">What we can do for you</span>
-                        <h2 class="text-2xl font-bold text-white mt-1 group-hover:text-brandRed transition">Any accommodation?</h2>
-                        <p class="text-gray-400 text-xs sm:text-sm mt-2">Discover high-rated properties globally with interactive price filters and luxury or budget recommendations.</p>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1 group-hover:text-brandRed transition">Any accommodation?</h2>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-2">Discover high-rated properties globally with interactive price filters and luxury or budget recommendations.</p>
                     </div>
                     <div class="mt-6 flex items-center text-xs font-bold text-brandRed group-hover:translate-x-2 transition">
                         Search Accommodations <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -243,12 +245,12 @@ html_code = """
                         <i class="fa-solid fa-taxi text-9xl"></i>
                     </div>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-white transition">
+                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-slate-900 transition">
                             <i class="fa-solid fa-map-location-dot"></i>
                         </div>
                         <span class="text-xs font-bold text-brandRed uppercase tracking-widest">What we can do for you</span>
-                        <h2 class="text-2xl font-bold text-white mt-1 group-hover:text-brandRed transition">You are already there and need any help?</h2>
-                        <p class="text-gray-400 text-xs sm:text-sm mt-2">Airport pickup, taxis, local transit, top nearby restaurants and hotels powered by live map discovery.</p>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1 group-hover:text-brandRed transition">You are already there and need any help?</h2>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-2">Airport pickup, taxis, local transit, top nearby restaurants and hotels powered by live map discovery.</p>
                     </div>
                     <div class="mt-6 flex items-center text-xs font-bold text-brandRed group-hover:translate-x-2 transition">
                         Locate Nearby Services <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -256,23 +258,44 @@ html_code = """
                 </div>
 
             </div>
-                <!-- CARD 5: FULL TRIP HANDLING -->
-                <div onclick="switchTab('packages')" class="glass-card glass-card-hover p-6 sm:p-8 rounded-2xl cursor-pointer group relative overflow-hidden flex flex-col justify-between min-h-[240px] md:col-span-2 border-brandRed/50">
-                    <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-25 transition text-brandRed">
-                        <i class="fa-solid fa-route text-9xl"></i>
+                <!-- CARD 5: BE YOUR OWN TRAVEL PLANNER -->
+                <div onclick="switchTab('planner')" class="glass-card glass-card-hover p-6 sm:p-8 rounded-2xl cursor-pointer group relative overflow-hidden flex flex-col justify-between min-h-[240px] md:col-span-2 border-purple-300/70">
+                    <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-25 transition text-purple-600">
+                        <i class="fa-solid fa-compass-drafting text-9xl"></i>
                     </div>
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-2xl mb-4 group-hover:bg-brandRed group-hover:text-white transition">
-                            <i class="fa-solid fa-route"></i>
+                        <div class="w-12 h-12 rounded-xl bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-600 text-2xl mb-4 group-hover:bg-purple-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-compass-drafting"></i>
                         </div>
-                        <span class="text-xs font-bold text-brandRed uppercase tracking-widest">New: Full trip handling</span>
-                        <h2 class="text-2xl font-bold text-white mt-1 group-hover:text-brandRed transition">What about a full handling of your trip A to Z?</h2>
-                        <p class="text-gray-400 text-xs sm:text-sm mt-2">Take a tour with PamsBeyond and discover our travel packages for visa preparation, flights, accommodation, and professional travel planning.</p>
+                        <span class="text-xs font-bold text-purple-600 uppercase tracking-widest">New: Personal travel planning</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1 group-hover:text-purple-600 transition">Be your own travel planner</h2>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-2">Tell Pams your origin, destination, dates, and budget. Receive a practical itinerary with flights, stays, hidden places, and booking links.</p>
                     </div>
-                    <div class="mt-6 flex items-center text-xs font-bold text-brandRed group-hover:translate-x-2 transition">
-                        Explore Our Packages <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-6 flex items-center text-xs font-bold text-purple-600 group-hover:translate-x-2 transition">
+                        Build My Travel Plan <i class="fa-solid fa-arrow-right ml-2"></i>
                     </div>
                 </div>
+
+            <!-- ABOUT PAMS -->
+            <section class="glass-card rounded-3xl p-6 sm:p-10 border border-purple-200 overflow-hidden">
+                <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-8 items-center">
+                    <div>
+                        <span class="text-brandRed text-xs font-bold uppercase tracking-widest">About Pams</span>
+                        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">Travel support that feels human, wherever you start.</h2>
+                        <p class="text-slate-600 mt-4 leading-relaxed">Pams is an AI travel services helper built with the experience of expert travel agents working across the Middle East, Austria, and the United States. It gives travellers a faster way to understand their options and plan with confidence.</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mt-6">
+                            <div class="rounded-2xl bg-blue-50 border border-blue-200 p-4"><b class="text-slate-900">Is Pams human?</b><p class="text-slate-600 text-sm mt-1">Pams is an AI assistant supported by travel agents. Ask to talk to an agent and connect with a person in seconds, free of charge.</p></div>
+                            <div class="rounded-2xl bg-purple-50 border border-purple-200 p-4"><b class="text-slate-900">Is it free?</b><p class="text-slate-600 text-sm mt-1">Pams is free to use. Fees apply only when you request an external service handled by an expert agent, such as application support or an embassy appointment.</p></div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-4">We do not archive personal information for these planning tools. External services are handled under the legal terms described in our policies.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <img class="h-44 w-full object-cover rounded-2xl border-4 border-white shadow-xl rotate-[-2deg]" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=700&q=80" alt="Airplane travelling above the clouds">
+                        <img class="h-44 w-full object-cover rounded-2xl border-4 border-white shadow-xl rotate-[2deg] mt-7" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80" alt="Beautiful travel destination">
+                        <img class="h-36 w-full object-cover rounded-2xl border-4 border-white shadow-xl col-span-2" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="Travel planning at a desk">
+                    </div>
+                </div>
+            </section>
 
         </section>
 
@@ -280,77 +303,23 @@ html_code = """
         <!-- ================================================================= -->
 
         <!-- ================================================================= -->
-        <!-- VIEW: FULL TRIP PACKAGES -->
-        <!-- ================================================================= -->
-        <section id="view-packages" class="space-y-8 hidden">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-4">
-                <div>
-                    <span class="text-brandRed text-xs font-bold tracking-widest uppercase">Full trip handling A to Z</span>
-                    <h1 class="text-3xl font-extrabold text-white">Take a tour with PamsBeyond</h1>
-                    <p class="text-gray-400 text-sm mt-2">Choose a package and let our team coordinate the important details.</p>
-                </div>
-                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Main
-                </button>
+        <!-- VIEW: BE YOUR OWN TRAVEL PLANNER -->
+        <section id="view-planner" class="space-y-8 hidden">
+            <div class="flex items-center justify-between border-b border-purple-200 pb-4">
+                <div><span class="text-purple-600 text-xs font-bold tracking-widest uppercase">Personal planning assistant</span><h1 class="text-3xl font-extrabold text-slate-900">Be your own travel planner</h1><p class="text-slate-600 text-sm mt-2">Share your trip parameters and Pams will build a practical starting itinerary around your budget.</p></div>
+                <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Main</button>
             </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- EUROPE PACKAGE -->
-                <article class="glass-card rounded-2xl overflow-hidden border border-brandRed/40">
-                    <div class="relative h-52 bg-brandBlack flex items-center justify-center overflow-hidden">
-                        <svg viewBox="0 0 700 260" class="w-full h-full" role="img" aria-label="Illustration of European travel with the Eiffel Tower and European landmarks">
-                            <rect width="700" height="260" fill="#10131b"/>
-                            <circle cx="590" cy="55" r="34" fill="#e60023" opacity=".85"/>
-                            <path d="M120 220 L185 52 L250 220 M148 145 H222 M135 180 H237 M185 52 V220" stroke="#fff" stroke-width="10" fill="none"/>
-                            <path d="M0 220 Q120 180 240 220 T480 220 T700 220 V260 H0Z" fill="#b3001b" opacity=".45"/>
-                            <path d="M360 210 C390 165 430 165 460 210 M398 165 V105 M430 165 V105 M370 190 H450" stroke="#e60023" stroke-width="9" fill="none"/>
-                            <text x="285" y="55" fill="#fff" font-size="30" font-family="Arial" font-weight="700">EUROPE</text>
-                            <text x="285" y="88" fill="#c9cbd1" font-size="18" font-family="Arial">culture • cities • memories</text>
-                        </svg>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <span class="text-xs font-bold text-brandRed uppercase tracking-widest">Package 01</span>
-                        <h2 class="text-2xl font-bold text-white">Europe on your pocket</h2>
-                        <p class="text-sm text-gray-300 leading-relaxed">Be relaxed and see what you get. We help with your visa application, flight and accommodation documents for visa use, and a professional travel plan. Don’t worry about travel insurance — our top-rated insurance company partners can process your order in minutes.</p>
-                        <div class="border-t border-gray-800 pt-4 space-y-3">
-                            <span class="text-brandRed font-black text-xl block">Starting from $7.99</span>
-                            <div class="flex flex-wrap gap-2">
-                                <button onclick="switchTab('visa')" class="px-4 py-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold">Check Visa Requirements</button>
-                                <button onclick="openAssistanceModal('Europe Travel Package', 'Flights')" class="px-4 py-2 rounded-xl bg-brandRed/20 hover:bg-brandRed text-brandRed hover:text-white text-xs font-bold">Submit Information & Talk to Our Officer</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- USA PACKAGE -->
-                <article class="glass-card rounded-2xl overflow-hidden border border-brandRed/40">
-                    <div class="relative h-52 bg-brandBlack flex items-center justify-center overflow-hidden">
-                        <svg viewBox="0 0 700 260" class="w-full h-full" role="img" aria-label="Illustration of New York and American travel">
-                            <rect width="700" height="260" fill="#10131b"/>
-                            <circle cx="575" cy="55" r="34" fill="#e60023" opacity=".85"/>
-                            <path d="M70 220 V145 H125 V220 M145 220 V95 H205 V220 M225 220 V125 H280 V220 M300 220 V62 H360 V220 M385 220 V112 H445 V220 M475 220 V80 H535 V220 M560 220 V135 H625 V220" fill="#fff" opacity=".9"/>
-                            <path d="M300 62 L330 30 L360 62" fill="#e60023"/>
-                            <path d="M0 220 H700" stroke="#e60023" stroke-width="8"/>
-                            <text x="70" y="55" fill="#fff" font-size="30" font-family="Arial" font-weight="700">THE USA</text>
-                            <text x="70" y="88" fill="#c9cbd1" font-size="18" font-family="Arial">New York and 50 siblings</text>
-                        </svg>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <span class="text-xs font-bold text-brandRed uppercase tracking-widest">Package 02</span>
-                        <h2 class="text-2xl font-bold text-white">Big Apple City and 50 siblings waiting for you</h2>
-                        <p class="text-sm text-gray-300 leading-relaxed">Grab your big coffee cup and open your eyes for a minute. Get your DS-160 while your burger is on the grill, with guided preparation for your American travel plans.</p>
-                        <div class="border-t border-gray-800 pt-4 space-y-3">
-                            <span class="text-brandRed font-black text-xl block">Starting from $9.99</span>
-                            <div class="flex flex-wrap gap-2">
-                                <button onclick="switchTab('visa')" class="px-4 py-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold">Check Visa Requirements</button>
-                                <button onclick="openAssistanceModal('USA Travel Package', 'Flights')" class="px-4 py-2 rounded-xl bg-brandRed/20 hover:bg-brandRed text-brandRed hover:text-white text-xs font-bold">Submit Information & Talk to Our Officer</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+            <div class="glass-card p-6 sm:p-8 rounded-2xl border border-purple-200">
+                <form onsubmit="event.preventDefault(); generateTravelPlan();" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div><label class="block text-xs font-bold text-slate-600 uppercase mb-2">Origin country</label><select id="plannerOrigin" required class="w-full bg-white border border-blue-200 rounded-xl px-4 py-3 text-sm text-slate-900"><option value="">Select origin...</option></select></div>
+                    <div><label class="block text-xs font-bold text-slate-600 uppercase mb-2">Destination</label><select id="plannerDestination" required class="w-full bg-white border border-blue-200 rounded-xl px-4 py-3 text-sm text-slate-900"><option value="">Select destination...</option></select></div>
+                    <div><label class="block text-xs font-bold text-slate-600 uppercase mb-2">Travel period</label><input id="plannerPeriod" required placeholder="e.g. 7 days in October" class="w-full bg-white border border-blue-200 rounded-xl px-4 py-3 text-sm text-slate-900"></div>
+                    <div><label class="block text-xs font-bold text-slate-600 uppercase mb-2">Total budget</label><input id="plannerBudget" required type="number" min="1" placeholder="e.g. 1500" class="w-full bg-white border border-blue-200 rounded-xl px-4 py-3 text-sm text-slate-900"></div>
+                    <div class="md:col-span-2"><button type="submit" class="w-full py-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm tracking-wide transition shadow-lg shadow-purple-200 flex items-center justify-center gap-2"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate My Travel Plan</button></div>
+                </form>
             </div>
+            <div id="plannerResults" class="hidden glass-card p-6 sm:p-8 rounded-2xl border-l-4 border-l-purple-600 space-y-5"></div>
         </section>
-
 
         <!-- VIEW 1: VISA REQUIREMENTS -->
         <!-- ================================================================= -->
@@ -358,9 +327,9 @@ html_code = """
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div>
                     <span class="text-brandRed text-xs font-bold tracking-widest uppercase">What we can do for you</span>
-                    <h1 class="text-3xl font-extrabold text-white">Global Visa & Requirements Search</h1>
+                    <h1 class="text-3xl font-extrabold text-slate-900">Global Visa & Requirements Search</h1>
                 </div>
-                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1">
                     <i class="fa-solid fa-arrow-left"></i> Back to Main
                 </button>
             </div>
@@ -368,22 +337,22 @@ html_code = """
             <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6">
                 <form id="visaForm" onsubmit="event.preventDefault(); runVisaSearch();" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-flag text-brandRed"></i> 1. Origin Country</label>
-                        <select id="visaOrigin" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-flag text-brandRed"></i> 1. Origin Country</label>
+                        <select id="visaOrigin" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="">Select Origin...</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-location-dot text-brandRed"></i> 2. Destination</label>
-                        <select id="visaDest" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-location-dot text-brandRed"></i> 2. Destination</label>
+                        <select id="visaDest" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="">Select Destination...</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-id-card text-brandRed"></i> 3. Passport Type</label>
-                        <select id="passportType" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-id-card text-brandRed"></i> 3. Passport Type</label>
+                        <select id="passportType" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="Ordinary Passport">Ordinary (Standard Tourist)</option>
                             <option value="Diplomatic Passport">Diplomatic Passport</option>
                             <option value="Official / Service Passport">Official / Service</option>
@@ -392,19 +361,14 @@ html_code = """
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-briefcase text-brandRed"></i> 4. Visa Type</label>
-                        <select id="visaType" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
-                            <option value="Tourist / Visitor Visa">Tourist / Visitor Visa</option>
-                            <option value="Business Visa">Business Visa</option>
-                            <option value="Student / Study Permit">Student / Study Permit</option>
-                            <option value="Work / Employment Visa">Work / Employment Visa</option>
-                            <option value="Transit Visa">Transit Visa</option>
-                            <option value="Permanent Residence">Permanent Residence</option>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-briefcase text-brandRed"></i> 4. Visa Type</label>
+                        <select id="visaType" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
+                            <option value="Tourist Visa">Tourist Visa</option>
                         </select>
                     </div>
 
                     <div class="md:col-span-2 lg:col-span-4 mt-2">
-                        <button type="submit" class="w-full py-4 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full py-4 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-magnifying-glass"></i> Search Requirements & Official Fees
                         </button>
                     </div>
@@ -417,38 +381,38 @@ html_code = """
                     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-800 pb-4">
                         <div>
                             <span class="text-xs text-brandRed font-bold uppercase tracking-wider">Search Result</span>
-                            <h2 id="resultTitle" class="text-2xl font-bold text-white">Egypt ➔ Canada (Visitor Visa)</h2>
+                            <h2 id="resultTitle" class="text-2xl font-bold text-slate-900">Egypt ➔ Canada (Visitor Visa)</h2>
                         </div>
                         <div class="text-right">
-                            <span class="text-xs text-gray-400 block">Official Govt Fee</span>
+                            <span class="text-xs text-slate-500 block">Official Govt Fee</span>
                             <span id="resultFee" class="text-2xl font-black text-brandRed">$100 USD + $85 Biometrics</span>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-sm font-bold text-white uppercase mb-3 flex items-center gap-2">
+                            <h3 class="text-sm font-bold text-slate-900 uppercase mb-3 flex items-center gap-2">
                                 <i class="fa-solid fa-file-shield text-brandRed"></i> Required Documents Checklist
                             </h3>
-                            <ul id="docList" class="space-y-2 text-xs sm:text-sm text-gray-300"></ul>
+                            <ul id="docList" class="space-y-2 text-xs sm:text-sm text-slate-600"></ul>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-white uppercase mb-3 flex items-center gap-2">
+                            <h3 class="text-sm font-bold text-slate-900 uppercase mb-3 flex items-center gap-2">
                                 <i class="fa-solid fa-gavel text-brandRed"></i> Key Terms & Entry Conditions
                             </h3>
-                            <ul id="termsList" class="space-y-2 text-xs sm:text-sm text-gray-300"></ul>
+                            <ul id="termsList" class="space-y-2 text-xs sm:text-sm text-slate-600"></ul>
                         </div>
                     </div>
 
                     <!-- HANDLING FOR YOU BOX -->
                     <div class="mt-6 p-6 rounded-xl bg-gradient-to-r from-brandNavy to-brandGray border border-brandRed/40 flex flex-col sm:flex-row items-center justify-between gap-4 glow-red">
                         <div>
-                            <span class="bg-brandRed text-white text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Handling for you</span>
-                            <h3 class="text-lg font-bold text-white mt-1">Want to handle your case starting from $5.99?</h3>
-                            <p id="offerText" class="text-xs text-gray-300 mt-1">Free consultation with our experienced officers.</p>
+                            <span class="bg-brandRed text-slate-900 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Want to talk live to the agent</span>
+                            <h3 class="text-lg font-bold text-slate-900 mt-1">Talk live with an experienced agent</h3>
+                            <p id="offerText" class="text-xs text-slate-600 mt-1">Ask your questions directly and receive guidance from our officer team.</p>
                         </div>
-                        <button onclick="triggerHandledAssistance()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-extrabold text-xs whitespace-nowrap transition shadow-lg">
-                            Want to handle your case starting from 5.99 $ and free consultation with our experienced officers <i class="fa-solid fa-headset ml-1"></i>
+                        <button onclick="triggerHandledAssistance()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 font-extrabold text-xs whitespace-nowrap transition shadow-lg">
+                            Talk to the agent live <i class="fa-solid fa-headset ml-1"></i>
                         </button>
                     </div>
                 </div>
@@ -463,9 +427,9 @@ html_code = """
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div>
                     <span class="text-brandRed text-xs font-bold tracking-widest uppercase">What we can do for you</span>
-                    <h1 class="text-3xl font-extrabold text-white">Need a suitable flight?</h1>
+                    <h1 class="text-3xl font-extrabold text-slate-900">Need a suitable flight?</h1>
                 </div>
-                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1">
                     <i class="fa-solid fa-arrow-left"></i> Back to Main
                 </button>
             </div>
@@ -485,28 +449,28 @@ html_code = """
                 <!-- Flight Search Form with Cities -->
                 <form id="flightForm" onsubmit="event.preventDefault(); runFlightSearch();" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-plane-departure text-brandRed"></i> Departure City</label>
-                        <select id="flightOriginCity" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-plane-departure text-brandRed"></i> Departure City</label>
+                        <select id="flightOriginCity" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="">Select Departure City...</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-plane-arrival text-brandRed"></i> Destination City</label>
-                        <select id="flightDestCity" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-plane-arrival text-brandRed"></i> Destination City</label>
+                        <select id="flightDestCity" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="">Select Arrival City...</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-calendar text-brandRed"></i> Departure Date</label>
-                        <input type="date" id="flightDepDate" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-calendar text-brandRed"></i> Departure Date</label>
+                        <input type="date" id="flightDepDate" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                     </div>
                     <div id="returnDateContainer">
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-calendar-check text-brandRed"></i> Return Date</label>
-                        <input type="date" id="flightRetDate" class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-calendar-check text-brandRed"></i> Return Date</label>
+                        <input type="date" id="flightRetDate" class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                     </div>
 
                     <div class="md:col-span-2 lg:col-span-4 mt-2">
-                        <button type="submit" class="w-full py-4 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full py-4 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-magnifying-glass"></i> Scan Airlines & Compare Fares
                         </button>
                     </div>
@@ -515,7 +479,7 @@ html_code = """
 
             <!-- Flight Results -->
             <div id="flightResults" class="hidden space-y-4">
-                <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                     <i class="fa-solid fa-plane text-brandRed"></i> Available Connection Deals
                 </h3>
                 <div id="flightList" class="space-y-4"></div>
@@ -530,9 +494,9 @@ html_code = """
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div>
                     <span class="text-brandRed text-xs font-bold tracking-widest uppercase">What we can do for you</span>
-                    <h1 class="text-3xl font-extrabold text-white">Find High-Rated Accommodations</h1>
+                    <h1 class="text-3xl font-extrabold text-slate-900">Find High-Rated Accommodations</h1>
                 </div>
-                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1">
                     <i class="fa-solid fa-arrow-left"></i> Back to Main
                 </button>
             </div>
@@ -540,22 +504,22 @@ html_code = """
             <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6">
                 <form id="hotelForm" onsubmit="event.preventDefault(); runHotelSearch();" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-city text-brandRed"></i> Destination City</label>
-                        <select id="hotelLocation" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-city text-brandRed"></i> Destination City</label>
+                        <select id="hotelLocation" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="">Choose Destination City...</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-calendar-day text-brandRed"></i> Check-in</label>
-                        <input type="date" id="hotelCheckIn" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-calendar-day text-brandRed"></i> Check-in</label>
+                        <input type="date" id="hotelCheckIn" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-calendar-day text-brandRed"></i> Check-out</label>
-                        <input type="date" id="hotelCheckOut" required class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-calendar-day text-brandRed"></i> Check-out</label>
+                        <input type="date" id="hotelCheckOut" required class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-users text-brandRed"></i> Guests & Rooms</label>
-                        <select id="hotelGuests" class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-users text-brandRed"></i> Guests & Rooms</label>
+                        <select id="hotelGuests" class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="1 Guest, 1 Room">1 Guest, 1 Room</option>
                             <option value="2 Guests, 1 Room" selected>2 Guests, 1 Room</option>
                             <option value="4 Guests, 2 Rooms">4 Guests, 2 Rooms</option>
@@ -563,7 +527,7 @@ html_code = """
                     </div>
 
                     <div class="md:col-span-2 lg:col-span-4">
-                        <button type="submit" class="w-full py-4 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full py-4 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-hotel"></i> Search Available Stays
                         </button>
                     </div>
@@ -575,11 +539,11 @@ html_code = """
                 <div class="glass-card p-4 rounded-xl flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-center gap-3">
                         <i class="fa-solid fa-sliders text-brandRed text-lg"></i>
-                        <span class="text-sm font-bold text-white">Price Filter:</span>
+                        <span class="text-sm font-bold text-slate-900">Price Filter:</span>
                         <input type="range" id="priceRange" min="50" max="1000" step="50" value="1000" oninput="filterHotels()" class="accent-brandRed cursor-pointer">
                         <span id="priceRangeValue" class="text-sm font-black text-brandRed">Up to $1000/night</span>
                     </div>
-                    <div class="text-xs text-gray-400">
+                    <div class="text-xs text-slate-500">
                         <span id="hotelCount">0</span> top-rated properties available
                     </div>
                 </div>
@@ -596,9 +560,9 @@ html_code = """
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div>
                     <span class="text-brandRed text-xs font-bold tracking-widest uppercase">What we can do for you</span>
-                    <h1 class="text-3xl font-extrabold text-white">Already There & Need Help?</h1>
+                    <h1 class="text-3xl font-extrabold text-slate-900">Already There & Need Help?</h1>
                 </div>
-                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1">
+                <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1">
                     <i class="fa-solid fa-arrow-left"></i> Back to Main
                 </button>
             </div>
@@ -606,12 +570,12 @@ html_code = """
             <div class="glass-card p-6 rounded-2xl space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-location-crosshairs text-brandRed"></i> Current Location / City</label>
-                        <input type="text" id="groundLocation" placeholder="e.g. Cairo, Paris, Toronto, Dubai" value="Cairo" class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-location-crosshairs text-brandRed"></i> Current Location / City</label>
+                        <input type="text" id="groundLocation" placeholder="e.g. Cairo, Paris, Toronto, Dubai" value="Cairo" class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-2"><i class="fa-solid fa-concierge-bell text-brandRed"></i> Required Assistance</label>
-                        <select id="groundService" class="w-full bg-brandBlack/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brandRed focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-2"><i class="fa-solid fa-concierge-bell text-brandRed"></i> Required Assistance</label>
+                        <select id="groundService" class="w-full bg-white border border-gray-700 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                             <option value="Airport Pickup / Taxi">Airport Pickup & Taxi Booking</option>
                             <option value="Domestic Transportation">Domestic Transportation & Rentals</option>
                             <option value="Nearby Restaurants">Nearby Top Rated Restaurants</option>
@@ -619,7 +583,7 @@ html_code = """
                         </select>
                     </div>
                     <div class="flex items-end">
-                        <button onclick="runGroundSearch()" class="w-full py-3.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
+                        <button onclick="runGroundSearch()" class="w-full py-3.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-map-pin"></i> Locate Nearby Services
                         </button>
                     </div>
@@ -632,7 +596,7 @@ html_code = """
                 </div>
 
                 <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-2 flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-slate-900 border-b border-gray-800 pb-2 flex items-center gap-2">
                         <i class="fa-solid fa-shield-halved text-brandRed"></i> Verified Local Operators
                     </h3>
                     <div id="providerList" class="space-y-3 text-xs"></div>
@@ -648,7 +612,7 @@ html_code = """
     <!-- ================================================================= -->
     <div class="fixed bottom-6 right-6 z-50">
         <!-- Floating Toggle Button -->
-        <button onclick="toggleChatbot()" class="w-14 h-14 rounded-full bg-brandRed hover:bg-brandRedDark text-white flex items-center justify-center shadow-2xl glow-red transition transform hover:scale-105">
+        <button onclick="toggleChatbot()" class="w-14 h-14 rounded-full bg-brandRed hover:bg-brandRedDark text-slate-900 flex items-center justify-center shadow-2xl glow-red transition transform hover:scale-105">
             <i class="fa-solid fa-comments text-2xl"></i>
         </button>
 
@@ -659,11 +623,11 @@ html_code = """
                 <div class="flex items-center gap-3">
                     <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
                     <div>
-                        <h4 class="text-sm font-bold text-white">PamsBeyond Live Chat</h4>
-                        <span class="text-[10px] text-gray-400">Human Officers Online</span>
+                        <h4 class="text-sm font-bold text-slate-900">PamsBeyond Live Chat</h4>
+                        <span class="text-[10px] text-slate-500">Human Officers Online</span>
                     </div>
                 </div>
-                <button onclick="toggleChatbot()" class="text-gray-400 hover:text-white">
+                <button onclick="toggleChatbot()" class="text-slate-500 hover:text-slate-900">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -673,16 +637,16 @@ html_code = """
             </div>
 
             <!-- Pre-scripted Quick Options -->
-            <div class="px-3 py-2 bg-brandBlack/60 border-t border-gray-800 flex gap-1.5 overflow-x-auto text-[10px]">
-                <button onclick="switchTab('visa'); toggleChatbot();" class="px-2.5 py-1 rounded-full bg-brandRed/20 text-brandRed font-semibold whitespace-nowrap hover:bg-brandRed hover:text-white transition">Visa Help</button>
-                <button onclick="switchTab('flights'); toggleChatbot();" class="px-2.5 py-1 rounded-full bg-brandRed/20 text-brandRed font-semibold whitespace-nowrap hover:bg-brandRed hover:text-white transition">Flight Deals</button>
-                <button onclick="sendQuickMsg('Talk to Officer')" class="px-2.5 py-1 rounded-full bg-brandRed/20 text-brandRed font-semibold whitespace-nowrap hover:bg-brandRed hover:text-white transition">Speak to Officer</button>
+            <div class="px-3 py-2 bg-white/80 border-t border-gray-800 flex gap-1.5 overflow-x-auto text-[10px]">
+                <button onclick="switchTab('visa'); toggleChatbot();" class="px-2.5 py-1 rounded-full bg-brandRed/20 text-brandRed font-semibold whitespace-nowrap hover:bg-brandRed hover:text-slate-900 transition">Visa Help</button>
+                <button onclick="switchTab('flights'); toggleChatbot();" class="px-2.5 py-1 rounded-full bg-brandRed/20 text-brandRed font-semibold whitespace-nowrap hover:bg-brandRed hover:text-slate-900 transition">Flight Deals</button>
+                <button onclick="sendQuickMsg('Talk to Officer')" class="px-2.5 py-1 rounded-full bg-brandRed/20 text-brandRed font-semibold whitespace-nowrap hover:bg-brandRed hover:text-slate-900 transition">Speak to Officer</button>
             </div>
 
             <!-- Input Bar -->
             <form onsubmit="handleUserChat(event)" class="p-3 bg-brandBlack border-t border-gray-800 flex items-center gap-2">
-                <input type="text" id="chatInput" placeholder="Type your inquiry..." class="flex-grow bg-brandGray border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brandRed">
-                <button type="submit" class="p-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-white text-xs">
+                <input type="text" id="chatInput" placeholder="Type your inquiry..." class="flex-grow bg-brandGray border border-gray-700 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-brandRed">
+                <button type="submit" class="p-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 text-xs">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </form>
@@ -693,37 +657,37 @@ html_code = """
     <!-- ================================================================= -->
     <!-- MODAL: REQUEST ASSISTANCE / OFFICER FORM -->
     <!-- ================================================================= -->
-    <div id="assistanceModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div id="assistanceModal" class="fixed inset-0 z-50 bg-white/80 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="glass-card max-w-lg w-full rounded-2xl p-6 sm:p-8 space-y-6 relative border-2 border-brandRed/50">
-            <button onclick="closeAssistanceModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+            <button onclick="closeAssistanceModal()" class="absolute top-4 right-4 text-slate-500 hover:text-slate-900">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
 
             <div>
                 <span class="text-brandRed text-xs font-bold uppercase tracking-widest">PamsBeyond Officers</span>
-                <h2 class="text-2xl font-bold text-white mt-1">Feel free to talk to our experienced human officers</h2>
-                <p class="text-xs text-gray-400 mt-1">Fill out your details to connect directly with an operational officer.</p>
+                <h2 class="text-2xl font-bold text-slate-900 mt-1">Feel free to talk to our experienced human officers</h2>
+                <p class="text-xs text-slate-500 mt-1">Fill out your details to connect directly with an operational officer.</p>
             </div>
 
             <form id="assistanceForm" onsubmit="handleAssistanceSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Full Name</label>
-                    <input type="text" id="clientName" required placeholder="e.g. John Doe" class="w-full bg-brandBlack/90 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-brandRed focus:outline-none">
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
+                    <input type="text" id="clientName" required placeholder="e.g. John Doe" class="w-full bg-white border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Email Address</label>
-                    <input type="email" id="clientEmail" required placeholder="john@example.com" class="w-full bg-brandBlack/90 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-brandRed focus:outline-none">
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Email Address</label>
+                    <input type="email" id="clientEmail" required placeholder="john@example.com" class="w-full bg-white border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:border-brandRed focus:outline-none">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Visa Assistance</label>
-                        <input type="text" id="modalVisaType" readonly class="w-full bg-brandGray border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-300">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Visa Assistance</label>
+                        <input type="text" id="modalVisaType" readonly class="w-full bg-brandGray border border-gray-800 rounded-xl px-3 py-2 text-xs text-slate-600">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Other Services</label>
-                        <select id="modalDest" class="w-full bg-brandGray border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-300">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Other Services</label>
+                        <select id="modalDest" class="w-full bg-brandGray border border-gray-800 rounded-xl px-3 py-2 text-xs text-slate-600">
                             <option value="Flights">Flights</option>
                             <option value="Hotels">Hotels</option>
                         </select>
@@ -735,7 +699,7 @@ html_code = """
                     <span>Free consultation — no processing fees.</span>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 font-bold text-sm tracking-wide transition shadow-lg shadow-brandRed/30 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-paper-plane"></i> Connect With Officer Desk
                 </button>
             </form>
@@ -754,15 +718,15 @@ html_code = """
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div>
                     <span class="text-brandRed text-xs font-bold tracking-widest uppercase">Trust & transparency</span>
-                    <h1 class="text-3xl font-extrabold text-white">Privacy Policy: Data Security & Document Handling</h1>
+                    <h1 class="text-3xl font-extrabold text-slate-900">Privacy Policy: Data Security & Document Handling</h1>
                 </div>
-                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Main</button>
+                <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Main</button>
             </div>
-            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-8 text-sm text-gray-300 leading-relaxed">
-                <p><strong class="text-white">PamsBeyond</strong> is committed to protecting your personal data and ensuring transparency regarding how your information is handled.</p>
-                <div><h2 class="text-xl font-bold text-white mb-3">1. Handling of Identity Documents</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-white">Secure transmission:</strong> Uploaded passports and identification documents are transmitted using encryption to help protect them during transit.</li><li><strong class="text-white">Automatic deletion:</strong> Identification documents are permanently purged after the relevant visa application, travel planning, or request processing is complete. We do not retain sensitive identification documents longer than necessary.</li></ul></div>
-                <div><h2 class="text-xl font-bold text-white mb-3">2. Use of Email and Contact Information</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-white">Strictly for updates:</strong> Your email is collected for important updates, status notifications, and essential information about your request or booking.</li><li><strong class="text-white">No spam or third-party sharing:</strong> We do not send spam or sell, rent, or share personal contact details with third parties for marketing or advertising.</li></ul></div>
-                <div><h2 class="text-xl font-bold text-white mb-3">3. Privacy Reminders</h2><ul class="list-disc pl-5 space-y-2"><li>Upload notices explain secure transmission and automatic deletion after processing.</li><li>Email and checkout notices explain that contact information is used for request updates only.</li><li>Confirmation emails can confirm when processing is complete and identification documents have been deleted.</li></ul></div>
+            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-8 text-sm text-slate-600 leading-relaxed">
+                <p><strong class="text-slate-900">PamsBeyond</strong> is committed to protecting your personal data and ensuring transparency regarding how your information is handled.</p>
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">1. Handling of Identity Documents</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-slate-900">Secure transmission:</strong> Documents provided for external services handled by our agents are transmitted using appropriate security measures to help protect them during processing.</li><li><strong class="text-slate-900">Limited scope:</strong> Documents are requested only when an external service is handled directly by one of our agents. We use them only for that requested service and do not archive them as part of the free planning tools.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">2. Use of Email and Contact Information</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-slate-900">Strictly for updates:</strong> Your email is collected for important updates, status notifications, and essential information about your request or booking.</li><li><strong class="text-slate-900">No spam or third-party sharing:</strong> We do not send spam or sell, rent, or share personal contact details with third parties for marketing or advertising.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">3. Privacy Reminders</h2><ul class="list-disc pl-5 space-y-2"><li>Secure-transmission notices apply only to documents submitted for external services handled directly by our agents.</li><li>Email and checkout notices explain that contact information is used for request updates only.</li><li>When an external service is complete, we aim to remove service documents in line with the applicable policy and legal requirements.</li></ul></div>
             </div>
         </section>
 
@@ -771,27 +735,27 @@ html_code = """
             <div class="flex items-center justify-between border-b border-gray-800 pb-4">
                 <div>
                     <span class="text-brandRed text-xs font-bold tracking-widest uppercase">Legal information</span>
-                    <h1 class="text-3xl font-extrabold text-white">PamsBeyond — Terms of Use</h1>
+                    <h1 class="text-3xl font-extrabold text-slate-900">PamsBeyond — Terms of Use</h1>
                 </div>
-                <button onclick="switchTab('home')" class="text-xs text-gray-400 hover:text-white flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Main</button>
+                <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Main</button>
             </div>
-            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-8 text-sm text-gray-300 leading-relaxed">
-                <div><h2 class="text-xl font-bold text-white mb-3">1. Nature of Services and Disclaimer</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-white">Independent service provider:</strong> PamsBeyond provides AI-powered tools and human-assisted guidance for travel planning and visa application preparation.</li><li><strong class="text-white">Not a government agency:</strong> PamsBeyond is not a government agency, embassy, or official consulate and cannot grant visas. Visa decisions rest solely with the relevant authorities and approval is not guaranteed.</li></ul></div>
-                <div><h2 class="text-xl font-bold text-white mb-3">2. Bookings and Third-Party Suppliers</h2><ul class="list-disc pl-5 space-y-2"><li>PamsBeyond compares flight and hotel prices and may link to third-party suppliers. We do not directly hold travel reservations.</li><li>Bookings are subject to supplier pricing, cancellation policies, and terms. PamsBeyond is not liable for supplier failures, delays, cancellations, or booking errors.</li></ul></div>
-                <div><h2 class="text-xl font-bold text-white mb-3">3. User Responsibilities</h2><ul class="list-disc pl-5 space-y-2"><li>Users must provide accurate, truthful, and current information.</li><li>Users are responsible for passport validity, vaccinations, transit visas, and other travel prerequisites.</li><li>Users must carefully review completed applications. If an error is identified on our part, PamsBeyond will work to correct it.</li></ul></div>
-                <div><h2 class="text-xl font-bold text-white mb-3">4. Fees, Payments, and Refund Policy</h2><ul class="list-disc pl-5 space-y-2"><li>PamsBeyond service fees cover preparation and filling services. Government fees, embassy charges, and third-party travel costs are separate.</li><li>Service fees are generally non-refundable. Visa rejection does not automatically qualify for a refund.</li><li>Exceptional review may be available when official documentation shows a refusal was directly caused by an error on our part.</li></ul></div>
-                <div><h2 class="text-xl font-bold text-white mb-3">5. Limitation of Liability</h2><p>PamsBeyond is not liable for financial losses, missed flights, denied boarding, or entry refusals caused by visa processing delays, embassy decisions, or inaccurate user-provided information. Liability is limited to the scope of application preparation and facilitation services.</p></div>
+            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-8 text-sm text-slate-600 leading-relaxed">
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">1. Nature of Services and Disclaimer</h2><ul class="list-disc pl-5 space-y-2"><li><strong class="text-slate-900">Independent service provider:</strong> PamsBeyond provides AI-powered tools and human-assisted guidance for travel planning and visa application preparation.</li><li><strong class="text-slate-900">Not a government agency:</strong> PamsBeyond is not a government agency, embassy, or official consulate and cannot grant visas. Visa decisions rest solely with the relevant authorities and approval is not guaranteed.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">2. Bookings and Third-Party Suppliers</h2><ul class="list-disc pl-5 space-y-2"><li>PamsBeyond compares flight and hotel prices and may link to third-party suppliers. We do not directly hold travel reservations.</li><li>Bookings are subject to supplier pricing, cancellation policies, and terms. PamsBeyond is not liable for supplier failures, delays, cancellations, or booking errors.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">3. User Responsibilities</h2><ul class="list-disc pl-5 space-y-2"><li>Users must provide accurate, truthful, and current information.</li><li>Users are responsible for passport validity, vaccinations, transit visas, and other travel prerequisites.</li><li>Users must carefully review completed applications. If an error is identified on our part, PamsBeyond will work to correct it.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">4. Fees, Payments, and Refund Policy</h2><ul class="list-disc pl-5 space-y-2"><li>PamsBeyond service fees cover preparation and filling services. Government fees, embassy charges, and third-party travel costs are separate.</li><li>Service fees are generally non-refundable. Visa rejection does not automatically qualify for a refund.</li><li>Fees for external agent services, government charges, and third-party travel costs are separate and are disclosed before the service begins.</li></ul></div>
+                <div><h2 class="text-xl font-bold text-slate-900 mb-3">5. Limitation of Liability</h2><p>PamsBeyond is not liable for financial losses, missed flights, denied boarding, or entry refusals caused by visa processing delays, embassy decisions, or inaccurate user-provided information. Liability is limited to the scope of application preparation and facilitation services.</p></div>
             </div>
         </section>
 
     <!-- FOOTER -->
-    <footer class="relative z-10 glass-card border-t border-brandRed/20 mt-12 py-6 px-4 text-center text-xs text-gray-500">
+    <footer class="relative z-10 glass-card border-t border-brandRed/20 mt-12 py-6 px-4 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
-                <span class="font-black text-white uppercase tracking-wider">pams<span class="text-brandRed">beyond</span></span>
+                <span class="font-black text-slate-900 uppercase tracking-wider">pams<span class="text-brandRed">beyond</span></span>
                 <span>&copy; <span id="year"></span>. All rights reserved.</span>
             </div>
-            <div class="flex items-center gap-4 text-gray-400">
+            <div class="flex items-center gap-4 text-slate-500">
                 <a href="#" onclick="switchTab('privacy'); return false;" class="hover:text-brandRed">Privacy Policy</a>
                 <a href="#" onclick="switchTab('terms'); return false;" class="hover:text-brandRed">Terms of Service</a>
                 <a href="#" onclick="openAssistanceModal('General Consultation', 'Flights'); return false;" class="hover:text-brandRed">Officer Desk</a>
@@ -829,7 +793,7 @@ html_code = """
 
         window.addEventListener('DOMContentLoaded', () => {
             // Populate Countries
-            ['visaOrigin', 'visaDest'].forEach(id => {
+            ['visaOrigin', 'visaDest', 'plannerOrigin', 'plannerDestination'].forEach(id => {
                 const el = document.getElementById(id);
                 globalCountries.forEach(c => {
                     const opt = document.createElement('option');
@@ -858,7 +822,7 @@ html_code = """
         });
 
         function switchTab(tabId) {
-            ['home', 'visa', 'flights', 'hotels', 'help', 'packages', 'privacy', 'terms'].forEach(id => {
+            ['home', 'planner', 'visa', 'flights', 'hotels', 'help', 'privacy', 'terms'].forEach(id => {
                 document.getElementById('view-' + id).classList.add('hidden');
             });
             document.getElementById('view-' + tabId).classList.remove('hidden');
@@ -867,6 +831,22 @@ html_code = """
                 setTimeout(() => leafletMap.invalidateSize(), 300);
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function generateTravelPlan() {
+            const origin = document.getElementById('plannerOrigin').value;
+            const destination = document.getElementById('plannerDestination').value;
+            const period = document.getElementById('plannerPeriod').value.trim();
+            const budget = Number(document.getElementById('plannerBudget').value);
+            const results = document.getElementById('plannerResults');
+            if (!origin || !destination || !period || !budget) return;
+            const budgetNote = budget < 800 ? 'Focus on flexible dates, public transport, and locally owned stays.' : budget < 1800 ? 'Balance comfortable stays with one or two priority experiences.' : 'Allow room for upgraded connections, central stays, and guided experiences.';
+            const flightLink = `https://www.google.com/travel/flights?q=Flights%20from%20${encodeURIComponent(origin)}%20to%20${encodeURIComponent(destination)}`;
+            const hotelLink = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(destination)}`;
+            const placesLink = `https://www.google.com/maps/search/hidden+gems+in+${encodeURIComponent(destination)}`;
+            results.innerHTML = `<div><span class="text-purple-600 text-xs font-bold uppercase tracking-widest">Your Pams travel plan</span><h2 class="text-2xl font-black text-slate-900 mt-1">${origin} to ${destination}</h2><p class="text-slate-600 text-sm mt-1">${period} · Budget: $${budget.toLocaleString()}</p></div><div class="grid md:grid-cols-2 gap-3"><div class="rounded-2xl bg-blue-50 border border-blue-200 p-4"><b class="text-slate-900">Flights</b><p class="text-slate-600 text-sm mt-1">Compare flexible connections and choose the route that preserves the largest share of your budget.</p><a class="text-brandRed text-sm font-bold" target="_blank" href="${flightLink}">Compare flights →</a></div><div class="rounded-2xl bg-purple-50 border border-purple-200 p-4"><b class="text-slate-900">Hotels</b><p class="text-slate-600 text-sm mt-1">Start with well-reviewed stays near transport, then filter by your budget and dates.</p><a class="text-brandRed text-sm font-bold" target="_blank" href="${hotelLink}">Compare stays →</a></div><div class="rounded-2xl bg-red-50 border border-red-200 p-4"><b class="text-slate-900">Places to explore</b><p class="text-slate-600 text-sm mt-1">Mix one landmark, one local neighbourhood, and one hidden place each day.</p><a class="text-brandRed text-sm font-bold" target="_blank" href="${placesLink}">Explore places →</a></div><div class="rounded-2xl bg-slate-50 border border-slate-200 p-4"><b class="text-slate-900">Budget guidance</b><p class="text-slate-600 text-sm mt-1">${budgetNote}</p><p class="text-xs text-slate-500 mt-2">This is a planning starting point. Prices and availability are supplied by the linked providers.</p></div></div>`;
+            results.classList.remove('hidden');
+            results.scrollIntoView({ behavior: 'smooth' });
         }
 
         // VISA SEARCH LOGIC
@@ -926,8 +906,7 @@ html_code = """
             ];
             document.getElementById('termsList').innerHTML = terms.map(t => `<li class="flex items-start gap-2"><i class="fa-solid fa-circle-exclamation text-brandRed mt-1"></i> <span>${t}</span></li>`).join('');
 
-            const dynamicPrice = "5.99";
-            document.getElementById('offerText').textContent = `Want to handle your case starting from 5.99 $ and get a free consultation with our experienced officers.`;
+            document.getElementById('offerText').textContent = `Talk to an experienced agent live about your travel needs.`;
 
             resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
@@ -969,18 +948,18 @@ html_code = """
                         </div>
                         <div>
                             <div class="flex items-center gap-2">
-                                <h4 class="text-base font-bold text-white">${a.name}</h4>
+                                <h4 class="text-base font-bold text-slate-900">${a.name}</h4>
                                 <span class="bg-brandRed/20 text-brandRed text-[10px] font-bold px-2 py-0.5 rounded">${a.stops}</span>
                             </div>
-                            <p class="text-xs text-gray-400 mt-1">${origin} ➔ ${dest} • Duration: ${a.time}</p>
+                            <p class="text-xs text-slate-500 mt-1">${origin} ➔ ${dest} • Duration: ${a.time}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-gray-800 pt-3 md:pt-0">
                         <div class="text-left md:text-right">
-                            <span class="text-[10px] text-gray-400 uppercase block">Best Available Rate</span>
+                            <span class="text-[10px] text-slate-500 uppercase block">Best Available Rate</span>
                             <span class="text-2xl font-black text-brandRed">${a.price}</span>
                         </div>
-                        <a href="https://www.skyscanner.com" target="_blank" class="px-5 py-2.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-white font-bold text-xs transition shadow-md flex items-center gap-1">
+                        <a href="https://www.skyscanner.com" target="_blank" class="px-5 py-2.5 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 font-bold text-xs transition shadow-md flex items-center gap-1">
                             Book Deal <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
                     </div>
@@ -1013,7 +992,7 @@ html_code = """
 
             const list = document.getElementById('hotelList');
             if (filtered.length === 0) {
-                list.innerHTML = `<div class="col-span-3 text-center py-8 text-gray-400">No accommodations found under $${maxPrice}. Adjust the filter.</div>`;
+                list.innerHTML = `<div class="col-span-3 text-center py-8 text-slate-500">No accommodations found under $${maxPrice}. Adjust the filter.</div>`;
                 return;
             }
 
@@ -1022,20 +1001,20 @@ html_code = """
                     <div>
                         <div class="relative h-48 overflow-hidden">
                             <img src="${h.img}" alt="${h.name}" class="w-full h-full object-cover">
-                            <span class="absolute top-3 left-3 bg-brandBlack/80 border border-brandRed/40 text-brandRed text-[10px] font-extrabold px-2 py-1 rounded-md uppercase tracking-wider">${h.tag}</span>
-                            <span class="absolute bottom-3 right-3 bg-brandBlack/80 text-yellow-400 font-bold text-xs px-2 py-1 rounded-md">${h.rating}</span>
+                            <span class="absolute top-3 left-3 bg-white border border-brandRed/40 text-brandRed text-[10px] font-extrabold px-2 py-1 rounded-md uppercase tracking-wider">${h.tag}</span>
+                            <span class="absolute bottom-3 right-3 bg-white text-yellow-400 font-bold text-xs px-2 py-1 rounded-md">${h.rating}</span>
                         </div>
                         <div class="p-5">
-                            <h4 class="text-lg font-bold text-white">${h.name}</h4>
-                            <p class="text-xs text-gray-400 mt-1"><i class="fa-solid fa-wifi text-brandRed"></i> Free High-Speed WiFi • Pool • Airport Transfer</p>
+                            <h4 class="text-lg font-bold text-slate-900">${h.name}</h4>
+                            <p class="text-xs text-slate-500 mt-1"><i class="fa-solid fa-wifi text-brandRed"></i> Free High-Speed WiFi • Pool • Airport Transfer</p>
                         </div>
                     </div>
                     <div class="p-5 pt-0 flex items-center justify-between border-t border-gray-800/80 mt-2">
                         <div>
-                            <span class="text-[10px] text-gray-400 block">Nightly Rate</span>
-                            <span class="text-xl font-black text-brandRed">$${h.price} <span class="text-xs text-gray-400 font-normal">/ night</span></span>
+                            <span class="text-[10px] text-slate-500 block">Nightly Rate</span>
+                            <span class="text-xl font-black text-brandRed">$${h.price} <span class="text-xs text-slate-500 font-normal">/ night</span></span>
                         </div>
-                        <a href="https://www.booking.com" target="_blank" class="px-4 py-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold transition">
+                        <a href="https://www.booking.com" target="_blank" class="px-4 py-2 rounded-xl bg-brandRed hover:bg-brandRedDark text-slate-900 text-xs font-bold transition">
                             Reserve Room
                         </a>
                     </div>
@@ -1067,13 +1046,13 @@ html_code = """
             ];
 
             providerList.innerHTML = providers.map(p => `
-                <div class="p-3 rounded-xl bg-brandBlack/60 border border-brandRed/30 space-y-1">
-                    <div class="flex items-center justify-between font-bold text-white">
+                <div class="p-3 rounded-xl bg-white/80 border border-brandRed/30 space-y-1">
+                    <div class="flex items-center justify-between font-bold text-slate-900">
                         <span>${p.name}</span>
                         <span class="text-brandRed">${p.rate}</span>
                     </div>
-                    <p class="text-gray-400 text-[11px]"><i class="fa-solid fa-phone text-brandRed"></i> ${p.phone}</p>
-                    <button onclick="openAssistanceModal('${service}', '${location}')" class="w-full mt-2 py-1.5 rounded bg-brandRed/20 hover:bg-brandRed text-brandRed hover:text-white font-bold text-[10px] transition">
+                    <p class="text-slate-500 text-[11px]"><i class="fa-solid fa-phone text-brandRed"></i> ${p.phone}</p>
+                    <button onclick="openAssistanceModal('${service}', '${location}')" class="w-full mt-2 py-1.5 rounded bg-brandRed/20 hover:bg-brandRed text-brandRed hover:text-slate-900 font-bold text-[10px] transition">
                         Feel free to talk to our experienced human officers
                     </button>
                 </div>
@@ -1117,7 +1096,7 @@ html_code = """
         function appendUserMsg(txt) {
             const chatMessages = document.getElementById('chatMessages');
             const msg = document.createElement('div');
-            msg.className = "bg-brandRed text-white p-2.5 rounded-xl ml-auto max-w-[80%] text-right font-medium";
+            msg.className = "bg-brandRed text-slate-900 p-2.5 rounded-xl ml-auto max-w-[80%] text-right font-medium";
             msg.textContent = txt;
             chatMessages.appendChild(msg);
             chatMessages.scrollTop = chatMessages.scrollHeight;
