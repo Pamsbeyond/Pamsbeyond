@@ -1,7 +1,31 @@
 import base64
+import io
+import os
+import re
+from datetime import date, timedelta
 from pathlib import Path
+
 import streamlit as st
 import streamlit.components.v1 as components
+
+try:
+    from amadeus import Client as AmadeusClient
+except ImportError:
+    AmadeusClient = None
+
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None
+
+try:
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import mm
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+    from reportlab.lib import colors
+except ImportError:
+    A4 = None
 
 # Set Streamlit Page Configuration
 st.set_page_config(
@@ -31,6 +55,88 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Single Page HTML/CSS/JS Web App Component
+
+def _secret(name):
+    try:
+        return st.secrets.get(name) or os.getenv(name)
+    except Exception:
+        return os.getenv(name)
+
+def _airport_code(amadeus, keyword):
+    result = amadeus.reference_data.locations.get(keyword=keyword, subType="CITY,AIRPORT")
+    data = getattr(result, "data", []) or []
+    return data[0].get("iataCode") if data else None
+
+def _live_search(origin, destination, period, budget):
+    if not AmadeusClient or not _secret("AMADEUS_CLIENT_ID") or not _secret("AMADEUS_CLIENT_SECRET"):
+        return None
+    amadeus = AmadeusClient(client_id=_secret("AMADEUS_CLIENT_ID"), client_secret=_secret("AMADEUS_CLIENT_SECRET"))
+    origin_code = _airport_code(amadeus, origin)
+    destination_code = _airport_code(amadeus, destination)
+    if not origin_code or not destination_code:
+        return None
+    match = re.search(r"(20\\d{2})[-/](\\d{1,2})[-/](\\d{1,2})", period)
+    departure = f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}" if match else (date.today() + timedelta(days=30)).isoformat()
+    response = amadeus.shopping.flight_offers_search.get(originLocationCode=origin_code, destinationLocationCode=destination_code, departureDate=departure, adults=1, max=5)
+    offers=[]
+    for offer in (getattr(response, "data", []) or [])[:5]:
+        price = offer.get("price", {}).get("grandTotal", "")
+        segments = offer.get("itineraries", [{}])[0].get("segments", [])
+        offers.append({"price": price, "airline": segments[0].get("carrierCode", "Flight") if segments else "Flight", "stops": max(0, len(segments)-1)})
+    return {"origin_code": origin_code, "destination_code": destination_code, "departure": departure, "flights": offers}
+
+def _offline_plan(origin, destination, period, budget):
+    return f"""Pams travel plan\n\nRoute: {origin} to {destination}\nTravel period: {period}\nTotal budget: ${budget:,.0f}\n\nSuggested allocation\n- Flights: about 35% (${budget*.35:,.0f})\n- Accommodation: about 35% (${budget*.35:,.0f})\n- Food and local transport: about 20% (${budget*.20:,.0f})\n- Experiences and contingency: about 10% (${budget*.10:,.0f})\n\nItinerary framework\n- Arrival day: settle in, local orientation, and a nearby evening walk.\n- Exploration days: one signature landmark, one local neighbourhood, and one flexible discovery activity each day.\n- Final day: reserve time for shopping, packing, and the return journey.\n\nBooking guidance\nCompare flexible flight dates, choose accommodation near public transport, and reserve only after checking the provider's cancellation terms.\n\nThis is a planning estimate, not a live quote. Verify prices, availability, entry rules, and official visa information before booking."""
+
+def _ai_plan(origin, destination, period, budget, live):
+    prompt = f"Create a concise but complete travel itinerary for {origin} to {destination}, for {period}, with a total budget of ${budget}. Include day-by-day activities, hidden/local places, flights, accommodation, food, local transport, budget allocations, and booking advice. Never invent live prices. Live flight data: {live}. If live data is absent, clearly label estimates. Return plain text with useful headings."
+    if not OpenAI or not _secret("OPENAI_API_KEY"):
+        return _offline_plan(origin, destination, period, budget)
+    client = OpenAI(api_key=_secret("OPENAI_API_KEY"))
+    result = client.chat.completions.create(model=_secret("OPENAI_MODEL") or "gpt-4o-mini", messages=[{"role":"system","content":"You are a careful travel planner. Use only supplied live data for current prices and label estimates."},{"role":"user","content":prompt}], temperature=0.4)
+    return result.choices[0].message.content
+
+def _make_pdf(text, title="Pams Travel Plan"):
+    if not A4:
+        return None
+    buffer=io.BytesIO()
+    doc=SimpleDocTemplate(buffer, pagesize=A4, rightMargin=16*mm, leftMargin=16*mm, topMargin=16*mm, bottomMargin=16*mm)
+    styles=getSampleStyleSheet(); story=[]
+    story.append(Paragraph(title, styles["Title"])); story.append(Spacer(1, 8))
+    for block in text.split("\n"):
+        if not block.strip(): story.append(Spacer(1, 5)); continue
+        style=styles["Heading2"] if (block.endswith(":") or block in ("Pams travel plan", "Suggested allocation", "Itinerary framework", "Booking guidance")) else styles["BodyText"]
+        story.append(Paragraph(block.replace("&","&amp;"), style)); story.append(Spacer(1, 3))
+    doc.build(story); return buffer.getvalue()
+
+with st.expander("Be your own travel planner", expanded=False):
+    st.caption("Live mode uses Amadeus and OpenAI when the corresponding Streamlit Secrets are configured. Otherwise Pams creates an offline budget plan.")
+    with st.form("secure_ai_travel_planner"):
+        c1,c2=st.columns(2)
+        origin=c1.text_input("Origin country or city", placeholder="Cairo")
+        destination=c2.text_input("Destination country or city", placeholder="Vienna")
+        period=st.text_input("Travel period", placeholder="2027-06-10 to 2027-06-17 or 7 days in June")
+        budget=st.number_input("Total budget (USD)", min_value=1.0, value=1500.0, step=50.0)
+        submitted=st.form_submit_button("Search and generate my PDF")
+    if submitted and origin and destination and period and budget:
+        with st.spinner("Searching live options and writing your plan..."):
+            try:
+                live=_live_search(origin,destination,period,budget)
+                plan=_ai_plan(origin,destination,period,budget,live)
+                pdf=_make_pdf(plan)
+                st.session_state["pams_plan_text"]=plan
+                st.session_state["pams_plan_pdf"]=pdf
+                st.session_state["pams_live_used"]=bool(live)
+            except Exception as exc:
+                st.session_state["pams_plan_text"]=_offline_plan(origin,destination,period,budget) + "\n\nLive search was unavailable, so this plan uses offline estimates."
+                st.session_state["pams_plan_pdf"]=_make_pdf(st.session_state["pams_plan_text"])
+                st.session_state["pams_live_used"]=False
+    if st.session_state.get("pams_plan_text"):
+        st.success("Live search used." if st.session_state.get("pams_live_used") else "Offline budget plan ready.")
+        st.text_area("Generated plan", st.session_state["pams_plan_text"], height=280)
+        if st.session_state.get("pams_plan_pdf"):
+            st.download_button("Download travel plan PDF", st.session_state["pams_plan_pdf"], file_name="pams-travel-plan.pdf", mime="application/pdf")
+
 html_code = """
 <!DOCTYPE html>
 <html lang="en" class="dark">
@@ -40,6 +146,7 @@ html_code = """
     <title>PamsBeyond - Visa & Travel Global Services</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Leaflet OpenStreetMap CSS & JS -->

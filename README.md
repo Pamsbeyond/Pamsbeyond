@@ -1,27 +1,27 @@
 # PamsBeyond
 
-PamsBeyond is a light, AI-assisted travel services helper supported by experienced travel agents across the Middle East, Austria, and the United States.
+PamsBeyond is an AI-assisted travel services helper.
 
-## Features
+## Live AI travel planner
 
-- Tourist visa requirements search
-- Live officer consultation through FormSubmit
-- Flight and accommodation search helpers
-- Local assistance discovery
-- Be Your Own Travel Planner: enter origin, destination, travel period, and budget to generate a practical itinerary with links to compare flights, stays, and places to explore
-- About Pams, privacy policy, and terms of use sections
+The planner tries live Amadeus flight search, then uses OpenAI to write a budget-aware itinerary and ReportLab to create a downloadable PDF. If live credentials are missing or live search fails, it automatically generates an offline budget plan and still provides a PDF download.
 
-## Run locally
+Add these values in Streamlit Secrets (never commit them):
+
+```toml
+AMADEUS_CLIENT_ID = "your-amadeus-client-id"
+AMADEUS_CLIENT_SECRET = "your-amadeus-client-secret"
+OPENAI_API_KEY = "your-openai-api-key"
+OPENAI_MODEL = "gpt-4o-mini"
+```
+
+The app accepts a city or country for origin and destination. For the best live flight search, include a date in `YYYY-MM-DD` format in the travel period, for example `2027-06-10 to 2027-06-17`.
+
+## Run
 
 ```bash
 python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Email setup
-
-The officer request form and visa search notification use FormSubmit and send to `pamsbeyond@gmail.com`. Confirm the FormSubmit activation email before testing production submissions. No Gmail password or API key is stored in this project.
-
-## Notes
-
-The planner creates a useful client-side starting itinerary and links to external providers for the client to compare and reserve independently. Prices, availability, visa requirements, and government fees must be verified with the relevant official authorities or providers.
+The app never stores API keys in the code. Prices and availability are supplied by third-party APIs and should be verified before booking.
