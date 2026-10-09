@@ -1,27 +1,15 @@
 # PamsBeyond
 
-PamsBeyond is an AI-assisted travel services helper.
+The planner uses FX-Port for live flight searches and OpenAI to generate a budget-aware itinerary and downloadable PDF. If live search is unavailable, it falls back to an offline budget plan.
 
-## Live AI travel planner
-
-The planner tries live Amadeus flight search, then uses OpenAI to write a budget-aware itinerary and ReportLab to create a downloadable PDF. If live credentials are missing or live search fails, it automatically generates an offline budget plan and still provides a PDF download.
-
-Add these values in Streamlit Secrets (never commit them):
+Streamlit Secrets:
 
 ```toml
-AMADEUS_CLIENT_ID = "your-amadeus-client-id"
-AMADEUS_CLIENT_SECRET = "your-amadeus-client-secret"
-OPENAI_API_KEY = "your-openai-api-key"
+FX_PORT_API_KEY = "fxp_test_your-key"
+OPENAI_API_KEY = "your-openai-key"
 OPENAI_MODEL = "gpt-4o-mini"
 ```
 
-The app accepts a city or country for origin and destination. For the best live flight search, include a date in `YYYY-MM-DD` format in the travel period, for example `2027-06-10 to 2027-06-17`.
+Use a test key while developing. Keep all keys in Streamlit Secrets and never commit them to GitHub.
 
-## Run
-
-```bash
-python -m pip install -r requirements.txt
-streamlit run app.py
-```
-
-The app never stores API keys in the code. Prices and availability are supplied by third-party APIs and should be verified before booking.
+For live flight search, enter a supported city or a three-letter airport code such as `CAI`, `VIE`, or `CDG`, and include a date in `YYYY-MM-DD` format.
