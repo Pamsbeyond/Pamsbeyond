@@ -76,7 +76,7 @@ def _offline_plan(origin,destination,period,budget):
 def _gemini_plan(origin,destination,period,budget,live):
     key=_secret("GOOGLE_API_KEY")
     if not key: return _offline_plan(origin,destination,period,budget)
-    model=_secret("GEMINI_MODEL") or "gemini-2.0-flash"
+    model=_secret("GEMINI_MODEL") or "gemini-3.1-flash-lite"
     prompt=f"Create a complete practical travel itinerary from {origin} to {destination} for {period} with a total budget of ${budget}. Include day-by-day activities, hidden/local places, flights, accommodation, food, local transport, budget allocations, and booking advice. Never invent live prices. Use this live FX-Port flight response when present: {live}. Clearly label estimates and return plain text with headings."
     url=f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
     response=requests.post(url,params={"key":key},json={"contents":[{"parts":[{"text":prompt}]}],"generationConfig":{"temperature":0.4}},timeout=45)

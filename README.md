@@ -8,7 +8,7 @@ Add these values in Streamlit Secrets:
 
 ```toml
 GOOGLE_API_KEY = "your-gemini-api-key"
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-3.1-flash-lite"
 FX_PORT_API_KEY = "fxp_test_your-key"
 ```
 
