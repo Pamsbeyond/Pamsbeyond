@@ -838,6 +838,7 @@ html_code = """
 
     <!-- FOOTER -->
     <footer class="relative z-10 glass-card border-t border-brandRed/20 mt-12 py-6 px-4 text-center text-xs text-slate-500">
+        <p class="max-w-3xl mx-auto mb-4 text-slate-600">Dear friend, this app contains affiliate links. We may earn a commission if you book through them at no extra cost to you.</p>
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
                 <span class="font-black text-slate-900 uppercase tracking-wider">pams<span class="text-brandRed">beyond</span></span>
