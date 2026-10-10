@@ -61,14 +61,16 @@ def _iata(value):
 
 def _fx_flights(origin,destination,period):
     key=_secret("FX_PORT_API_KEY")
-    if not key: return None
+    if not key: raise RuntimeError("FX_PORT_API_KEY is missing from Streamlit Secrets")
     origin_code=_iata(origin); destination_code=_iata(destination)
-    if not origin_code or not destination_code: return None
-    match=re.search(r"(20\\d{2})[-/](\\d{1,2})[-/](\\d{1,2})",period)
+    if not origin_code or not destination_code: raise RuntimeError("Use valid city names or three-letter airport codes for origin and destination")
+    match=re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})",period)
     departure=f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}" if match else (date.today()+timedelta(days=30)).isoformat()
     r=requests.post("https://api.fx-port.com/api/v1/get_flights",headers={"Authorization":f"Bearer {key}","Content-Type":"application/json"},json={"origin":origin_code,"destination":destination_code,"departure_date":departure,"cabin_class":"economy","passengers":{"adults":1}},timeout=25)
-    r.raise_for_status()
-    return {"origin_code":origin_code,"destination_code":destination_code,"departure":departure,"data":r.json()}
+    if not r.ok: raise RuntimeError(f"FX-Port returned HTTP {r.status_code}: {r.text[:400]}")
+    try: data=r.json()
+    except ValueError: raise RuntimeError(f"FX-Port returned non-JSON data: {r.text[:400]}")
+    return {"origin_code":origin_code,"destination_code":destination_code,"departure":departure,"data":data}
 
 def _offline_plan(origin,destination,period,budget):
     return f"""Pams travel plan\n\nRoute: {origin} to {destination}\nTravel period: {period}\nTotal budget: ${budget:,.0f}\n\nSuggested allocation\n- Flights: about 35% (${budget*.35:,.0f})\n- Accommodation: about 35% (${budget*.35:,.0f})\n- Food and local transport: about 20% (${budget*.20:,.0f})\n- Experiences and contingency: about 10% (${budget*.10:,.0f})\n\nItinerary framework\n- Arrival day: settle in, local orientation, and a nearby evening walk.\n- Exploration days: one signature landmark, one local neighbourhood, and one flexible discovery activity each day.\n- Final day: reserve time for shopping, packing, and the return journey.\n\nThis is a planning estimate. Verify prices, availability, entry rules, and official visa information before booking."""
@@ -76,7 +78,7 @@ def _offline_plan(origin,destination,period,budget):
 def _groq_plan(origin,destination,period,budget,live):
     key=_secret("GROQ_API_KEY")
     if not key:
-        return _offline_plan(origin,destination,period,budget)
+        raise RuntimeError("GROQ_API_KEY is missing from Streamlit Secrets")
     model=_secret("GROQ_MODEL") or "llama-3.3-70b-versatile"
     prompt=f"""Create a complete, practical travel itinerary from {origin} to {destination} for {period} with a total budget of ${budget:,.0f}.
 
@@ -107,9 +109,11 @@ Live FX-Port flight response:
         },
         timeout=60,
     )
-    response.raise_for_status()
-    data=response.json()
-    return data["choices"][0]["message"]["content"].strip()
+    if not response.ok: raise RuntimeError(f"Groq returned HTTP {response.status_code}: {response.text[:400]}")
+    try: data=response.json()
+    except ValueError: raise RuntimeError(f"Groq returned non-JSON data: {response.text[:400]}")
+    try: return data["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError, TypeError): raise RuntimeError(f"Groq response did not contain message content: {str(data)[:400]}")
 
 def _make_pdf(text):
     if not A4: return None
@@ -125,12 +129,16 @@ with st.expander("Be your own travel planner — Groq + live FX-Port", expanded=
         c1,c2=st.columns(2); origin=c1.text_input("Origin city or airport code",placeholder="Cairo or CAI"); destination=c2.text_input("Destination city or airport code",placeholder="Vienna or VIE"); period=st.text_input("Travel period",placeholder="2027-06-10 to 2027-06-17"); budget=st.number_input("Total budget (USD)",min_value=1.0,value=1500.0,step=50.0); submitted=st.form_submit_button("Search and generate my PDF")
     if submitted and origin and destination and period and budget:
         with st.spinner("Searching live flight options and writing your plan..."):
-            try:
-                live=_fx_flights(origin,destination,period); plan=_groq_plan(origin,destination,period,budget,live); st.session_state["pams_plan_text"]=plan; st.session_state["pams_plan_pdf"]=_make_pdf(plan); st.session_state["pams_live_used"]=bool(live)
-            except Exception:
-                text=_offline_plan(origin,destination,period,budget)+"\\n\\nLive search or Groq was unavailable, so this plan uses offline estimates."; st.session_state["pams_plan_text"]=text; st.session_state["pams_plan_pdf"]=_make_pdf(text); st.session_state["pams_live_used"]=False
+            flight_error=None; groq_error=None; live=None
+            try: live=_fx_flights(origin,destination,period)
+            except Exception as exc: flight_error=str(exc)
+            try: plan=_groq_plan(origin,destination,period,budget,live)
+            except Exception as exc: groq_error=str(exc); plan=_offline_plan(origin,destination,period,budget)
+            st.session_state["pams_plan_text"]=plan; st.session_state["pams_plan_pdf"]=_make_pdf(plan); st.session_state["pams_live_used"]=bool(live); st.session_state["pams_flight_error"]=flight_error; st.session_state["pams_groq_error"]=groq_error
+    if st.session_state.get("pams_flight_error"): st.warning("Live flight search failed: "+st.session_state["pams_flight_error"])
+    if st.session_state.get("pams_groq_error"): st.error("Groq itinerary generation failed: "+st.session_state["pams_groq_error"])
     if st.session_state.get("pams_plan_text"):
-        st.success("Groq Llama itinerary ready; live FX-Port flight data included." if st.session_state.get("pams_live_used") else "Offline budget plan ready."); st.text_area("Generated plan",st.session_state["pams_plan_text"],height=280)
+        st.success("Groq Llama itinerary ready; live FX-Port flight data included." if st.session_state.get("pams_live_used") and not st.session_state.get("pams_groq_error") else "Offline or partial plan ready."); st.text_area("Generated plan",st.session_state["pams_plan_text"],height=280)
         if st.session_state.get("pams_plan_pdf"): st.download_button("Download travel plan PDF",st.session_state["pams_plan_pdf"],file_name="pams-travel-plan.pdf",mime="application/pdf")
 
 html_code = """

@@ -34,6 +34,10 @@ streamlit run app.py
 
 Never put the Groq or FX-Port keys directly in `app.py`, JavaScript, or a public repository. The Groq request is made server-side so the key is not exposed to visitors.
 
+## Troubleshooting offline results
+
+If the app returns an offline plan, it now displays the exact failed service and response. Confirm that the Streamlit Secrets names are exactly `GROQ_API_KEY`, `GROQ_MODEL`, and `FX_PORT_API_KEY`, then reboot the app. Use a real Groq model such as `llama-3.3-70b-versatile`, and use a valid three-letter airport code such as `CAI`, `VIE`, or `CDG`. FX-Port request and response formats can vary by account, so compare the displayed FX-Port error with your account’s API documentation.
+
 
 Clients can select a destination card to open its dedicated itinerary, photo, and booking links. These are planning starting points; verify seasonal conditions, opening hours, prices, entry requirements, and availability before booking.
 
