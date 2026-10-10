@@ -36,3 +36,5 @@ Never put the Groq or FX-Port keys directly in `app.py`, JavaScript, or a public
 
 
 Clients can select a destination card to open its dedicated itinerary, photo, and booking links. These are planning starting points; verify seasonal conditions, opening hours, prices, entry requirements, and availability before booking.
+
+The secure Groq + FX-Port generator is the expanded Streamlit planner panel at the top of the app. The embedded custom-trip form provides a browser-side planning preview because browser JavaScript must not receive private API keys.
