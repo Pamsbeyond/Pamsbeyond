@@ -79,7 +79,7 @@ def _groq_plan(origin,destination,period,budget,live):
     key=_secret("GROQ_API_KEY")
     if not key:
         raise RuntimeError("GROQ_API_KEY is missing from Streamlit Secrets")
-    model=_secret("GROQ_MODEL") or "llama-3.3-70b-versatile"
+    model=_secret("GROQ_MODEL") or "llama-3.1-8b-instant"
     prompt=f"""Create a complete, practical travel itinerary from {origin} to {destination} for {period} with a total budget of ${budget:,.0f}.
 
 Include:
