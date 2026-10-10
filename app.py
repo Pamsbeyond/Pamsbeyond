@@ -73,16 +73,43 @@ def _fx_flights(origin,destination,period):
 def _offline_plan(origin,destination,period,budget):
     return f"""Pams travel plan\n\nRoute: {origin} to {destination}\nTravel period: {period}\nTotal budget: ${budget:,.0f}\n\nSuggested allocation\n- Flights: about 35% (${budget*.35:,.0f})\n- Accommodation: about 35% (${budget*.35:,.0f})\n- Food and local transport: about 20% (${budget*.20:,.0f})\n- Experiences and contingency: about 10% (${budget*.10:,.0f})\n\nItinerary framework\n- Arrival day: settle in, local orientation, and a nearby evening walk.\n- Exploration days: one signature landmark, one local neighbourhood, and one flexible discovery activity each day.\n- Final day: reserve time for shopping, packing, and the return journey.\n\nThis is a planning estimate. Verify prices, availability, entry rules, and official visa information before booking."""
 
-def _gemini_plan(origin,destination,period,budget,live):
-    key=_secret("GOOGLE_API_KEY")
-    if not key: return _offline_plan(origin,destination,period,budget)
-    model=_secret("GEMINI_MODEL") or "gemini-3.1-flash-lite"
-    prompt=f"Create a complete practical travel itinerary from {origin} to {destination} for {period} with a total budget of ${budget}. Include day-by-day activities, hidden/local places, flights, accommodation, food, local transport, budget allocations, and booking advice. Never invent live prices. Use this live FX-Port flight response when present: {live}. Clearly label estimates and return plain text with headings."
-    url=f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-    response=requests.post(url,params={"key":key},json={"contents":[{"parts":[{"text":prompt}]}],"generationConfig":{"temperature":0.4}},timeout=45)
+def _groq_plan(origin,destination,period,budget,live):
+    key=_secret("GROQ_API_KEY")
+    if not key:
+        return _offline_plan(origin,destination,period,budget)
+    model=_secret("GROQ_MODEL") or "llama-3.3-70b-versatile"
+    prompt=f"""Create a complete, practical travel itinerary from {origin} to {destination} for {period} with a total budget of ${budget:,.0f}.
+
+Include:
+- a day-by-day itinerary
+- local or less-touristy places
+- flight guidance using the live FX-Port response when available
+- accommodation areas and food suggestions
+- local transport
+- a realistic budget allocation
+- booking and safety advice
+
+Never invent live prices, availability, visa rules, or booking confirmations. Clearly label estimates and assumptions. Return plain text with useful headings and concise bullet points.
+
+Live FX-Port flight response:
+{live or "No live flight response was available."}"""
+    response=requests.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        json={
+            "model": model,
+            "messages": [
+                {"role": "system", "content": "You are PamsBeyond, a careful and practical travel-planning assistant."},
+                {"role": "user", "content": prompt},
+            ],
+            "temperature": 0.4,
+            "max_tokens": 2500,
+        },
+        timeout=60,
+    )
     response.raise_for_status()
     data=response.json()
-    return data["candidates"][0]["content"]["parts"][0]["text"]
+    return data["choices"][0]["message"]["content"].strip()
 
 def _make_pdf(text):
     if not A4: return None
@@ -93,17 +120,17 @@ def _make_pdf(text):
     doc.build(story); return b.getvalue()
 
 with st.expander("Be your own travel planner", expanded=False):
-    st.caption("The planner tries FX-Port for live flights and Gemini for the itinerary. If keys are missing or live search is unavailable, Pams creates an offline budget plan and still provides a PDF.")
-    with st.form("secure_fx_gemini_planner"):
+    st.caption("The planner uses FX-Port for live flights and Groq Llama for the itinerary. If keys are missing or live search is unavailable, Pams creates an offline budget plan and still provides a PDF.")
+    with st.form("secure_groq_travel_planner"):
         c1,c2=st.columns(2); origin=c1.text_input("Origin city or airport code",placeholder="Cairo or CAI"); destination=c2.text_input("Destination city or airport code",placeholder="Vienna or VIE"); period=st.text_input("Travel period",placeholder="2027-06-10 to 2027-06-17"); budget=st.number_input("Total budget (USD)",min_value=1.0,value=1500.0,step=50.0); submitted=st.form_submit_button("Search and generate my PDF")
     if submitted and origin and destination and period and budget:
         with st.spinner("Searching live flight options and writing your plan..."):
             try:
-                live=_fx_flights(origin,destination,period); plan=_gemini_plan(origin,destination,period,budget,live); st.session_state["pams_plan_text"]=plan; st.session_state["pams_plan_pdf"]=_make_pdf(plan); st.session_state["pams_live_used"]=bool(live)
+                live=_fx_flights(origin,destination,period); plan=_groq_plan(origin,destination,period,budget,live); st.session_state["pams_plan_text"]=plan; st.session_state["pams_plan_pdf"]=_make_pdf(plan); st.session_state["pams_live_used"]=bool(live)
             except Exception:
-                text=_offline_plan(origin,destination,period,budget)+"\\n\\nLive search or Gemini was unavailable, so this plan uses offline estimates."; st.session_state["pams_plan_text"]=text; st.session_state["pams_plan_pdf"]=_make_pdf(text); st.session_state["pams_live_used"]=False
+                text=_offline_plan(origin,destination,period,budget)+"\\n\\nLive search or Groq was unavailable, so this plan uses offline estimates."; st.session_state["pams_plan_text"]=text; st.session_state["pams_plan_pdf"]=_make_pdf(text); st.session_state["pams_live_used"]=False
     if st.session_state.get("pams_plan_text"):
-        st.success("Live FX-Port flight data and Gemini used." if st.session_state.get("pams_live_used") else "Offline budget plan ready."); st.text_area("Generated plan",st.session_state["pams_plan_text"],height=280)
+        st.success("Groq Llama itinerary ready; live FX-Port flight data included." if st.session_state.get("pams_live_used") else "Offline budget plan ready."); st.text_area("Generated plan",st.session_state["pams_plan_text"],height=280)
         if st.session_state.get("pams_plan_pdf"): st.download_button("Download travel plan PDF",st.session_state["pams_plan_pdf"],file_name="pams-travel-plan.pdf",mime="application/pdf")
 
 html_code = """

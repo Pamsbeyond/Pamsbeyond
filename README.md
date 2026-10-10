@@ -1,18 +1,20 @@
 # PamsBeyond
 
-## FX-Port + Gemini travel planner
+## FX-Port + Groq Llama travel planner
 
-The planner uses FX-Port for live flight searches and Google Gemini to generate a budget-aware itinerary and downloadable PDF. If live search or Gemini is unavailable, it automatically falls back to an offline budget plan.
+The planner uses FX-Port for live flight searches and Groq Llama to generate a budget-aware itinerary and downloadable PDF. If live search or Groq is unavailable, it automatically falls back to an offline budget plan.
+
+The default model is `llama-3.3-70b-versatile`, selected for stronger itinerary quality and practical reasoning. You can override it with `GROQ_MODEL` if you prefer a faster Llama 3.1 model.
 
 Add these values in Streamlit Secrets:
 
 ```toml
-GOOGLE_API_KEY = "your-gemini-api-key"
-GEMINI_MODEL = "gemini-3.1-flash-lite"
+GROQ_API_KEY = "your-groq-api-key"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 FX_PORT_API_KEY = "fxp_test_your-key"
 ```
 
-`GOOGLE_API_KEY` must be a Gemini API key from Google AI Studio, not a Google Maps key. Keep all keys in Streamlit Secrets and never commit them to GitHub.
+`GROQ_API_KEY` is created in the Groq Console. Keep all keys in Streamlit Secrets and never commit them to GitHub.
 
 For live flight search, enter a supported city or a three-letter airport code such as `CAI`, `VIE`, or `CDG`, and include a date in `YYYY-MM-DD` format.
 
@@ -22,3 +24,12 @@ For live flight search, enter a supported city or a three-letter airport code su
 python -m pip install -r requirements.txt
 streamlit run app.py
 ```
+
+## Streamlit Community Cloud
+
+1. Open your app in Streamlit Community Cloud.
+2. Open **Settings → Secrets**.
+3. Paste the TOML block above and replace both placeholder API keys.
+4. Save the secrets and reboot the app.
+
+Never put the Groq or FX-Port keys directly in `app.py`, JavaScript, or a public repository. The Groq request is made server-side so the key is not exposed to visitors.
